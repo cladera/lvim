@@ -5,7 +5,7 @@ end
 local home = os.getenv "HOME"
 -- find_root looks for parent directories relative to the current buffer containing one of the given arguments.
 if vim.fn.has "mac" == 1 then
-  WORKSPACE_PATH = home .. "/workspace/"
+  WORKSPACE_PATH = home .. "/Workspace/"
 elseif vim.fn.has "unix" == 1 then
   WORKSPACE_PATH = home .. "/workspace/"
 else
