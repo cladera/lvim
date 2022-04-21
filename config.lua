@@ -175,7 +175,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- you can overwrite the null_ls setup table (useful for setting the root_dir function)
 
 -- Replace null_ls by nvim-jdtls
-vim.list_extend(lvim.lsp.override, { "java", "jdtls" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "java", "jdtls" })
 -- require("lvim.lsp.manager").setup("jdtls", require('user.jdtls').user_config());
 -- print(vim.inspect(require('user.jdtls').user_config()))
 
