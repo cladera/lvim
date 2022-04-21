@@ -18,7 +18,7 @@ lvim.colorscheme = "nord"
 
 require "user.plugins"
 -- require "user.jdtls"
--- require "user.dap"
+require "user.dap"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -96,6 +96,12 @@ lvim.builtin.which_key.mappings["j"] = {
   name = "Java+",
   t = {"<cmd>lua require('jdtls').test_class()<cr>", "Test Class"},
   m = {"<cmd>lua require('jdtls').test_nearest_method()<cr>", "Test nearest method"},
+lvim.builtin.which_key.mappings["r"] = {
+  name = "Run+",
+  c = {"<cmd>lua require('jdtls').test_class()<cr>", "Java Tests: Class"},
+  m = {"<cmd>lua require('jdtls').test_nearest_method()<cr>", "Java Tests: Nearest  method"},
+}
+
 lvim.builtin.which_key.mappings["H"] = {
   name = "Harpoon+",
   H = {":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", "Show menu"},
