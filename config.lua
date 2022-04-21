@@ -28,6 +28,8 @@ lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<c-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<slient><A-j>"] = "m`:silent +g/m^s*$/d<CR>``:noh<CR>"
+lvim.keys.normal_mode["m"] = ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>"
+lvim.keys.normal_mode["M"] = ":lua require(\"harpoon.mark\").add_file()<cr>"
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<c-up>"] = ""
 -- edit a default keymapping
@@ -94,6 +96,11 @@ lvim.builtin.which_key.mappings["j"] = {
   name = "Java+",
   t = {"<cmd>lua require('jdtls').test_class()<cr>", "Test Class"},
   m = {"<cmd>lua require('jdtls').test_nearest_method()<cr>", "Test nearest method"},
+lvim.builtin.which_key.mappings["H"] = {
+  name = "Harpoon+",
+  H = {":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", "Show menu"},
+  h = {":lua require(\"harpoon.mark\").add_file()<cr>", "Add file"},
+  c = {":lua require(\"harpoon.mark\").clear_all()<cr>", "Clear all"},
 }
 
 -- TODO: User Config for predefined plugins

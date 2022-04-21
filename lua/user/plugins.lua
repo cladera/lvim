@@ -30,6 +30,7 @@ lvim.plugins = {
     ft = "markdown",
   },
   { "mfussenegger/nvim-jdtls" },
+  {"nvim-telescope/telescope-ui-select.nvim"},
   -- {"mfussenegger/nvim-dap-ui"},
   {"doums/darcula"},
 }
