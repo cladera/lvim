@@ -20,8 +20,8 @@ require "user.plugins"
 -- require "user.jdtls"
 -- require "user.dap"
 
-vim.wo.number = true
-vim.wo.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
 -- keymappings [view all the defaults by pressing <leader>lk]
 lvim.leader = "space"
