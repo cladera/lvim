@@ -101,6 +101,14 @@ lvim.builtin.which_key.mappings["l"]["g"] = {
  "<cmd>lua require('jdtls').organize_imports()<cr>", "Organize Imports"
 }
 
+local code_actions_copy = lvim.builtin.which_key.mappings["l"]["a"]
+lvim.builtin.which_key.mappings["l"]["a"] = {
+ "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Actions"
+}
+lvim.builtin.which_key.mappings["l"]["A"] = code_actions_copy;
+
+lvim.builtin.cmp.confirm_opts.select = true;
+
 lvim.builtin.which_key.mappings["r"] = {
   name = "Run+",
   c = {"<cmd>lua require('jdtls').test_class()<cr>", "Java Tests: Class"},
@@ -149,6 +157,25 @@ lvim.builtin.treesitter.ensure_installed = {
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
+
+-- Telescope extensions
+lvim.builtin.telescope.extensions['ui-select'] = require("telescope.themes").get_dropdown {
+  winblend = 15,
+  layout_config = {
+    prompt_position = "top",
+    width = 80,
+    height = 12,
+  },
+  borderchars = lvim.builtin.telescope.defaults.borderchars,
+  border = {},
+  previewer = false,
+  shorten_path = false,
+}
+
+lvim.builtin.telescope.on_config_done = function (telescope)
+  telescope.load_extension("ui-select")
+end
+-- require("telescope").load_extension("ui-select")
 
 -- generic LSP settings
 
