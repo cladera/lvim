@@ -198,14 +198,8 @@ vim.list_extend(lvim.lsp.override, { "java", "jdtls" })
 --   end
 -- end
 
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- set a formatter, this will override the language server formatting capabilities (if it exists)
 -- local formatters = require "lvim.lsp.null-ls.formatters"
--- formatters.setup {
---   {
---     exe = "clang-format",
---   },
--- }
-
 -- -- set additional linters
 -- local linters = require "lvim.lsp.null-ls.linters"
 -- linters.setup {
