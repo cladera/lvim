@@ -72,9 +72,17 @@ lvim.builtin.which_key.mappings["m"] = {
   p = {"<cmd>TermExec cmd=\"mvn package\"<CR>", "Package"},
   t = {"<cmd>TermExec cmd=\"mvn test\"<CR>", "Test"},
   c = {"<cmd>TermExec cmd=\"mvn compile\"<CR>", "Complie"},
+  C = {"<cmd>TermExec cmd=\"mvn clean compile\"<CR>", "Clean Complie"},
   i = {"<cmd>TermExec cmd=\"mvn install\"<CR>", "Install"},
+  I = {"<cmd>TermExec cmd=\"mvn clean install\"<CR>", "Clean Install"},
   v = {"<cmd>TermExec cmd=\"mvn verify\"<CR>", "Verify"},
+  V = {"<cmd>TermExec cmd=\"mvn clean verify\"<CR>", "Clean Verify"},
   u = {"<cmd>TermExec cmd=\"mvn clean\"<CR>", "Clean"},
+  g = {
+    name = "Generate",
+    m = {"<cmd>TermExec cmd=\"mvn archetype:generate\"<CR>", "Module"},
+    c = {"<cmd>TermExec cmd=\"mvn archetype:generate -DarchetypeGroupId=io.cucumber -DarchetypeArtifactId=cucumber-archetype -DarchetypeVersion=7.0.0\"<CR>", "Cucumber Module"},
+  },
 }
 
 lvim.builtin.which_key.mappings["g"]["g"] = {
