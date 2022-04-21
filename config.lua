@@ -102,10 +102,6 @@ lvim.builtin.which_key.mappings["l"]["g"] = {
  "<cmd>lua require('jdtls').organize_imports()<cr>", "Organize Imports"
 }
 
-lvim.builtin.which_key.mappings["j"] = {
-  name = "Java+",
-  t = {"<cmd>lua require('jdtls').test_class()<cr>", "Test Class"},
-  m = {"<cmd>lua require('jdtls').test_nearest_method()<cr>", "Test nearest method"},
 lvim.builtin.which_key.mappings["r"] = {
   name = "Run+",
   c = {"<cmd>lua require('jdtls').test_class()<cr>", "Java Tests: Class"},
