@@ -226,3 +226,6 @@ vim.list_extend(lvim.lsp.override, { "java", "jdtls" })
 -- lvim.autocommands.custom_groups = {
 --   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
 -- }
+lvim.autocommands.custom_groups = {
+  {"FileType", "harpoon", "setlocal wrap"},
+};
