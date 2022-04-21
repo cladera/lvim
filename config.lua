@@ -17,7 +17,6 @@ lvim.colorscheme = "nord"
 -- lvim.colorscheme = "spacedark"
 
 require "user.plugins"
--- require "user.jdtls"
 require "user.dap"
 
 vim.opt.number = true
