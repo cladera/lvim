@@ -22,6 +22,8 @@ require "user.dap"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.shiftwidth = 4;
+vim.opt.tabstop = 4;
 
 -- keymappings [view all the defaults by pressing <leader>lk]
 lvim.leader = "space"
