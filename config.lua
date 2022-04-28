@@ -11,18 +11,17 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = false
-lvim.colorscheme = "nord"
--- lvim.colorscheme = "darkplus"
+-- lvim.colorscheme = "nord"
+lvim.colorscheme = "darkplus"
 -- lvim.colorscheme = "darcula"
 -- lvim.colorscheme = "spacedark"
 
 require "user.plugins"
 require "user.dap"
+require "user.dap.ui"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.shiftwidth = 4;
-vim.opt.tabstop = 4;
 
 -- keymappings [view all the defaults by pressing <leader>lk]
 lvim.leader = "space"
@@ -31,6 +30,7 @@ lvim.keys.normal_mode["<c-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<slient><A-j>"] = "m`:silent +g/m^s*$/d<CR>``:noh<CR>"
 lvim.keys.normal_mode["m"] = ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>"
 lvim.keys.normal_mode["M"] = ":lua require(\"harpoon.mark\").add_file()<cr>"
+
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<c-up>"] = ""
 -- edit a default keymapping
@@ -68,19 +68,19 @@ lvim.builtin.which_key.mappings["t"] = {
 
 lvim.builtin.which_key.mappings["m"] = {
   name = "+Maven",
-  p = {"<cmd>TermExec cmd=\"mvn package\"<CR>", "Package"},
-  t = {"<cmd>TermExec cmd=\"mvn test\"<CR>", "Test"},
-  c = {"<cmd>TermExec cmd=\"mvn compile\"<CR>", "Complie"},
-  C = {"<cmd>TermExec cmd=\"mvn clean compile\"<CR>", "Clean Complie"},
-  i = {"<cmd>TermExec cmd=\"mvn install\"<CR>", "Install"},
-  I = {"<cmd>TermExec cmd=\"mvn clean install\"<CR>", "Clean Install"},
-  v = {"<cmd>TermExec cmd=\"mvn verify\"<CR>", "Verify"},
-  V = {"<cmd>TermExec cmd=\"mvn clean verify\"<CR>", "Clean Verify"},
-  u = {"<cmd>TermExec cmd=\"mvn clean\"<CR>", "Clean"},
+  p = { "<cmd>TermExec cmd=\"mvn package\"<CR>", "Package" },
+  t = { "<cmd>TermExec cmd=\"mvn test\"<CR>", "Test" },
+  c = { "<cmd>TermExec cmd=\"mvn compile\"<CR>", "Complie" },
+  C = { "<cmd>TermExec cmd=\"mvn clean compile\"<CR>", "Clean Complie" },
+  i = { "<cmd>TermExec cmd=\"mvn install\"<CR>", "Install" },
+  I = { "<cmd>TermExec cmd=\"mvn clean install\"<CR>", "Clean Install" },
+  v = { "<cmd>TermExec cmd=\"mvn verify\"<CR>", "Verify" },
+  V = { "<cmd>TermExec cmd=\"mvn clean verify\"<CR>", "Clean Verify" },
+  u = { "<cmd>TermExec cmd=\"mvn clean\"<CR>", "Clean" },
   g = {
     name = "Generate",
-    m = {"<cmd>TermExec cmd=\"mvn archetype:generate\"<CR>", "Module"},
-    c = {"<cmd>TermExec cmd=\"mvn archetype:generate -DarchetypeGroupId=io.cucumber -DarchetypeArtifactId=cucumber-archetype -DarchetypeVersion=7.0.0\"<CR>", "Cucumber Module"},
+    m = { "<cmd>TermExec cmd=\"mvn archetype:generate\"<CR>", "Module" },
+    c = { "<cmd>TermExec cmd=\"mvn archetype:generate -DarchetypeGroupId=io.cucumber -DarchetypeArtifactId=cucumber-archetype -DarchetypeVersion=7.0.0\"<CR>", "Cucumber Module" },
   },
 }
 
@@ -93,17 +93,17 @@ lvim.builtin.which_key.mappings["g"]["f"] = {
 
 lvim.builtin.which_key.mappings["G"] = {
   name = "+Resolve Conflicts",
-  f = {"<cmd>diffget //2<cr>", "Accept Current"},
-  j = {"<cmd>diffget //3<cr>", "Accept Incomping"},
+  f = { "<cmd>diffget //2<cr>", "Accept Current" },
+  j = { "<cmd>diffget //3<cr>", "Accept Incomping" },
 }
 
 lvim.builtin.which_key.mappings["l"]["g"] = {
- "<cmd>lua require('jdtls').organize_imports()<cr>", "Organize Imports"
+  "<cmd>lua require('jdtls').organize_imports()<cr>", "Organize Imports"
 }
 
 local code_actions_copy = lvim.builtin.which_key.mappings["l"]["a"]
 lvim.builtin.which_key.mappings["l"]["a"] = {
- "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Actions"
+  "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Actions"
 }
 lvim.builtin.which_key.mappings["l"]["A"] = code_actions_copy;
 
@@ -111,15 +111,26 @@ lvim.builtin.cmp.confirm_opts.select = true;
 
 lvim.builtin.which_key.mappings["r"] = {
   name = "Run+",
-  c = {"<cmd>lua require('jdtls').test_class()<cr>", "Java Tests: Class"},
-  m = {"<cmd>lua require('jdtls').test_nearest_method()<cr>", "Java Tests: Nearest  method"},
+  c = { "<cmd>lua require('jdtls').test_class()<cr>", "Java Tests: Class" },
+  m = { "<cmd>lua require('jdtls').test_nearest_method()<cr>", "Java Tests: Nearest  method" },
 }
 
+lvim.builtin.dap.on_config_done = function()
+  lvim.builtin.which_key.mappings["d"]["r"] = {
+    "<cmd>lua require('dapui').toggle()<cr>", "Toggle Rapl"
+  }
+end
+
 lvim.builtin.which_key.mappings["H"] = {
-  name = "Harpoon+",
-  H = {":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", "Show menu"},
-  h = {":lua require(\"harpoon.mark\").add_file()<cr>", "Add file"},
-  c = {":lua require(\"harpoon.mark\").clear_all()<cr>", "Clear all"},
+  name = "Harpoon",
+  H = { ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", "Show menu" },
+  h = { ":lua require(\"harpoon.mark\").add_file()<cr>", "Add file" },
+  c = { ":lua require(\"harpoon.mark\").clear_all()<cr>", "Clear all" },
+}
+
+lvim.builtin.which_key.mappings["S"] = {
+  name = "Quick settings",
+  j = { ":setlocal ts=4 sw=4<cr>", "Set indent to 4" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -135,7 +146,7 @@ lvim.builtin.nvimtree.group_empty = 1
 
 lvim.builtin.project.manual_mode = true
 
-lvim.builtin.fancy_statusline = { active = false } -- enable/disable fancy statusline
+lvim.builtin.fancy_statusline = { active = true } -- enable/disable fancy statusline
 if lvim.builtin.fancy_statusline.active then
   require("user.lualine").config()
 end
@@ -172,7 +183,7 @@ lvim.builtin.telescope.extensions['ui-select'] = require("telescope.themes").get
   shorten_path = false,
 }
 
-lvim.builtin.telescope.on_config_done = function (telescope)
+lvim.builtin.telescope.on_config_done = function(telescope)
   telescope.load_extension("ui-select")
 end
 -- require("telescope").load_extension("ui-select")
@@ -202,7 +213,7 @@ end
 -- you can overwrite the null_ls setup table (useful for setting the root_dir function)
 
 -- Replace null_ls by nvim-jdtls
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "java", "jdtls" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls"})
 -- require("lvim.lsp.manager").setup("jdtls", require('user.jdtls').user_config());
 -- print(vim.inspect(require('user.jdtls').user_config()))
 
@@ -244,5 +255,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "java", "jdt
 --   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
 -- }
 lvim.autocommands.custom_groups = {
-  {"FileType", "harpoon", "setlocal wrap"},
+  { "FileType", "harpoon", "setlocal wrap" },
+  { "FileType", "make", "setlocal noexpandtab" },
+  { "FileType", "java", "setlocal ts=4 sw=4" },
 };

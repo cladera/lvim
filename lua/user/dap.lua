@@ -1,13 +1,16 @@
-local dap = require('dap')
+local ok, dap = pcall(require, "dap")
 
-dap.configurations.java = {
-  {
-    type = "java";
-    request = "attach";
-    name = "Java Attach";
-    hostName = "localhost";
-    port = 5005;
-  },
-}
+if ok then
+  dap.configurations.java = {
+    {
+      type = "java";
+      request = "attach";
+      name = "Java Attach";
+      hostName = "localhost";
+      port = 5005;
+    },
+  }
 
-require('dap.ext.vscode').load_launchjs()
+  require('dap.ext.vscode').load_launchjs()
+end
+

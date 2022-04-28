@@ -4,7 +4,7 @@ lvim.plugins = {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
-  {'arcticicestudio/nord-vim'},
+  -- {'arcticicestudio/nord-vim'},
   {'tpope/vim-fugitive'},
   {'tpope/vim-surround'},
   {
@@ -24,13 +24,17 @@ lvim.plugins = {
       require("user.todo_comments").config()
     end,
   },
-  {
-    "iamcco/markdown-preview.nvim",
-    run = "cd app && npm install",
-    ft = "markdown",
-  },
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   run = "cd app && npm install",
+  --   ft = "markdown",
+  -- },
   { "mfussenegger/nvim-jdtls" },
   {"nvim-telescope/telescope-ui-select.nvim"},
-  -- {"mfussenegger/nvim-dap-ui"},
+  {"rcarriga/nvim-dap-ui"},
   {"doums/darcula"},
+  { "folke/tokyonight.nvim"}, 
+   -- { "lunarvim/colorschemes" }, -- A bunch of colorschemes you can try out
+  { "lunarvim/darkplus.nvim" }, 
+  { "rose-pine/neovim"}
 }
