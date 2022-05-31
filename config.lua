@@ -17,6 +17,7 @@ lvim.colorscheme = "darkplus"
 -- lvim.colorscheme = "spacedark"
 
 require "user.plugins"
+require "user.autocommands"
 require "user.dap"
 require "user.dap.ui"
 
@@ -213,7 +214,7 @@ end
 -- you can overwrite the null_ls setup table (useful for setting the root_dir function)
 
 -- Replace null_ls by nvim-jdtls
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls"})
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls" })
 -- require("lvim.lsp.manager").setup("jdtls", require('user.jdtls').user_config());
 -- print(vim.inspect(require('user.jdtls').user_config()))
 
@@ -250,12 +251,3 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls"})
 -- lvim.plugins = {
 -- }
 
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- lvim.autocommands.custom_groups = {
---   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
--- }
-lvim.autocommands.custom_groups = {
-  { "FileType", "harpoon", "setlocal wrap" },
-  { "FileType", "make", "setlocal noexpandtab" },
-  { "FileType", "java", "setlocal ts=4 sw=4" },
-};
