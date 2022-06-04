@@ -5,8 +5,8 @@ lvim.plugins = {
     cmd = "TroubleToggle",
   },
   -- {'arcticicestudio/nord-vim'},
-  {'tpope/vim-fugitive'},
-  {'tpope/vim-surround'},
+  { 'tpope/vim-fugitive' },
+  { 'tpope/vim-surround' },
   {
     "lukas-reineke/indent-blankline.nvim",
     -- event = "BufReadPre",
@@ -14,7 +14,7 @@ lvim.plugins = {
       require("user.blankline").config()
     end,
   },
-  {'editorconfig/editorconfig-vim'},
+  { 'editorconfig/editorconfig-vim' },
   {
     "ThePrimeagen/harpoon",
   },
@@ -30,11 +30,12 @@ lvim.plugins = {
   --   ft = "markdown",
   -- },
   { "mfussenegger/nvim-jdtls" },
-  {"nvim-telescope/telescope-ui-select.nvim"},
-  {"rcarriga/nvim-dap-ui"},
-  {"doums/darcula"},
-  { "folke/tokyonight.nvim"}, 
-   -- { "lunarvim/colorschemes" }, -- A bunch of colorschemes you can try out
-  { "lunarvim/darkplus.nvim" }, 
-  { "rose-pine/neovim"}
+  { "nvim-telescope/telescope-ui-select.nvim" },
+  { "rcarriga/nvim-dap-ui" },
+  { "doums/darcula" },
+  { "folke/tokyonight.nvim" },
+  -- { "lunarvim/colorschemes" }, -- A bunch of colorschemes you can try out
+  { "lunarvim/darkplus.nvim" },
+  { "rose-pine/neovim" },
+  { "christianchiarulli/nvim-gps", branch = "text_hl" }
 }

@@ -155,8 +155,8 @@ local function get_file_icon_color()
 end
 
 local default_colors = {
-  -- bg = "#252525",
-  -- bg_alt = "#252525",
+  bg = "#252525",
+  bg_alt = "#252525",
   -- bg = "#68217a",
   -- bg_alt = "#68217a",
   -- bg = "#327ac6",
@@ -175,8 +175,8 @@ local default_colors = {
   blue = "#569cd6",
   red = "#d16969",
   git = { change = "#0c7d9d", add = "#587c0c", delete = "#94151b", conflict = "#bb7a61" },
-  bg = "#5E81AC",
-  bg_alt = "#5E81AC",
+  -- bg = "#5E81AC",
+  -- bg_alt = "#5E81AC",
 }
 
 M.config = function()

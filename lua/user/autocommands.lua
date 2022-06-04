@@ -31,3 +31,11 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     vim.opt_local.sw = 4
   end
 })
+
+-- Winbar
+vim.api.nvim_create_autocmd({ "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
+  callback = function()
+    local winbar = require("user.winbar")
+    pcall(winbar.get_winbar, {})
+  end,
+})
