@@ -56,6 +56,8 @@ lvim.keys.normal_mode["M"] = ":lua require(\"harpoon.mark\").add_file()<cr>"
 --   },
 -- }
 
+-- lvim.builtin.alpha.dashboard.config['dashboard'] = "Twilio";
+
 -- use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["p"] = { "<cmd>telescope projects<cr>", "projects" }
 lvim.builtin.which_key.mappings["t"] = {
@@ -83,6 +85,7 @@ lvim.builtin.which_key.mappings["m"] = {
     name = "Generate",
     m = { "<cmd>TermExec cmd=\"mvn archetype:generate\"<CR>", "Module" },
     c = { "<cmd>TermExec cmd=\"mvn archetype:generate -DarchetypeGroupId=io.cucumber -DarchetypeArtifactId=cucumber-archetype -DarchetypeVersion=7.0.0\"<CR>", "Cucumber Module" },
+    s = { "<cmd>TermExec cmd=\"mvn archetype:generate -DarchetypeGroupId=com.github.netyjq -DarchetypeArtifactId=spring-boot-archetype -DarchetypeVersion=0.0.2.release\"<CR>", "SpringBoot" },
   },
 }
 
