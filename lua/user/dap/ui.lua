@@ -1,6 +1,12 @@
-local ok, dapui = pcall(require, "dapui")
+local dap_ok, dap = pcall(require, "dap")
+local dapui_ok, dapui = pcall(require, "dapui")
 
-if not ok then
+if not dap_ok then
+    print('dap not available')
+    return
+end
+
+if not dapui_ok then
     print('dapui not available')
     return
 end
@@ -52,3 +58,15 @@ dapui.setup({
     }
 })
 
+-- dap listeners
+dap.listeners.after.event_initialized['dapui-config'] = function ()
+  dapui.open()
+end
+
+dap.listeners.after.event_terminated['dapui-config'] = function ()
+  dapui.close()
+end
+
+dap.listeners.after.event_exited['dapui-config'] = function ()
+  dapui.close()
+end
