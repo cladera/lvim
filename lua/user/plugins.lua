@@ -4,7 +4,7 @@ lvim.plugins = {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
-  -- {'arcticicestudio/nord-vim'},
+  {'arcticicestudio/nord-vim'},
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-surround' },
   {
@@ -34,7 +34,6 @@ lvim.plugins = {
   { "rcarriga/nvim-dap-ui" },
   { "doums/darcula" },
   { "folke/tokyonight.nvim" },
-  -- { "lunarvim/colorschemes" }, -- A bunch of colorschemes you can try out
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
   { "christianchiarulli/nvim-gps", branch = "text_hl" }
