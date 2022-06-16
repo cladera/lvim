@@ -30,7 +30,7 @@ lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<c-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<slient><A-j>"] = "m`:silent +g/m^s*$/d<CR>``:noh<CR>"
-lvim.keys.normal_mode["m"] = ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>"
+-- lvim.keys.normal_mode["m"] = ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>"
 lvim.keys.normal_mode["M"] = ":lua require(\"harpoon.mark\").add_file()<cr>"
 
 -- unmap a default keymapping
