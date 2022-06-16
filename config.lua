@@ -144,9 +144,25 @@ lvim.builtin.which_key.mappings["S"] = {
 -- lvim.builtin.terminal.active = true
 lvim.builtin.dap.active = true
 
+lvim.builtin.nvimtree.active = false
 lvim.builtin.nvimtree.setup.view.side = "left"
--- lvim.builtin.nvimtree.show_icons.git = 0
--- lvim.builtin.nvimtree.hide_dotfiles = 0
+lvim.builtin.nvimtree.setup.git.enable = true
+lvim.builtin.nvimtree.setup.git.timeout = 400
+lvim.builtin.nvimtree.setup.filters.custom = {
+  "^\\.settings",
+  "^\\.project",
+  "^\\.classpath",
+  "^\\.factorypath",
+  "node_modules"
+}
+lvim.builtin.nvimtree.setup.log = {
+  enable = true,
+  truncate = true,
+  types = {
+    git = true,
+    profile = true
+  },
+}
 lvim.builtin.nvimtree.group_empty = 1
 
 lvim.builtin.project.manual_mode = true
