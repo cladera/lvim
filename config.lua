@@ -5,7 +5,7 @@ linters should be
 filled in as strings with either
 a global executable or a path to
 an executable
-]]
+-- ]]
 -- these are example configs feel free to change to whatever you want
 
 -- general
@@ -29,6 +29,7 @@ vim.opt.relativenumber = true
 
 -- keymappings [view all the defaults by pressing <leader>lk]
 lvim.leader = "space"
+
 -- add your own keymapping
 lvim.keys.normal_mode["<c-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<cr>"
@@ -119,6 +120,16 @@ lvim.builtin.which_key.mappings["r"] = {
   name = "Run+",
   c = { "<cmd>lua require('jdtls').test_class()<cr>", "Java Tests: Class" },
   m = { "<cmd>lua require('jdtls').test_nearest_method()<cr>", "Java Tests: Nearest  method" },
+}
+
+-- Extract actions
+lvim.keys.visual_mode["<c-m>"] = "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>"
+lvim.keys.visual_mode["<c-c>"] = "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>"
+
+lvim.builtin.which_key.vmappings["e"] = {
+  name = "Extract",
+  c = { "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", "Constant" },
+  m = { "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", "Method" },
 }
 
 lvim.builtin.dap.on_config_done = function()
