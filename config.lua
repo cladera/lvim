@@ -21,6 +21,8 @@ require "user.autocommands"
 require "user.dap"
 require "user.dap.ui"
 require "user.gps"
+require "user.harpoon"
+-- require "user.null-ls.checkstyle"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -29,9 +31,6 @@ vim.opt.relativenumber = true
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<c-s>"] = ":w<cr>"
-lvim.keys.normal_mode["<slient><A-j>"] = "m`:silent +g/m^s*$/d<CR>``:noh<CR>"
--- lvim.keys.normal_mode["m"] = ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>"
-lvim.keys.normal_mode["M"] = ":lua require(\"harpoon.mark\").add_file()<cr>"
 
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<c-up>"] = ""
@@ -125,13 +124,6 @@ lvim.builtin.dap.on_config_done = function()
     "<cmd>lua require('dapui').toggle()<cr>", "Toggle Rapl"
   }
 end
-
-lvim.builtin.which_key.mappings["H"] = {
-  name = "Harpoon",
-  H = { ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", "Show menu" },
-  h = { ":lua require(\"harpoon.mark\").add_file()<cr>", "Add file" },
-  c = { ":lua require(\"harpoon.mark\").clear_all()<cr>", "Clear all" },
-}
 
 lvim.builtin.which_key.mappings["S"] = {
   name = "Quick settings",
@@ -270,4 +262,3 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls" })
 -- Now managed in an indepenent file (see require above)
 -- lvim.plugins = {
 -- }
-
