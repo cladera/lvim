@@ -246,17 +246,21 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls" })
 -- end
 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
--- local formatters = require "lvim.lsp.null-ls.formatters"
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  { exe = "black" },
+  { command = "prettier", filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" } }
+}
 -- -- set additional linters
--- local linters = require "lvim.lsp.null-ls.linters"
--- linters.setup {
---   { exe = "black" },
---   {
---     exe = "eslint_d",
---     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---     filetypes = { "javascript", "javascriptreact" },
---   },
--- }
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+  { exe = "flake8" },
+  -- {
+  --   exe = "eslint_d",
+  --   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+  --   filetypes = { "javascript", "javascriptreact" },
+  -- },
+}
 
 -- Additional Plugins
 -- Now managed in an indepenent file (see require above)
