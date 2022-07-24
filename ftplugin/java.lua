@@ -22,7 +22,8 @@ extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 JAVA_LS_EXECUTABLE = home .. "/.local/share/lunarvim/lvim/utils/bin/jdtls"
 
 local bundles = {
-    vim.fn.glob(home .. "/.config/lvim/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
+  vim.fn.glob(home ..
+    "/.config/lvim/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
 };
 
 -- This is the new part
@@ -58,6 +59,43 @@ jdtls.start_or_attach {
         template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
       },
       useBlocks = true,
+    },
+    java = {
+      eclipse = {
+        downloadSources = true,
+      },
+      configuration = {
+        updateBuildConfiguration = "interactive",
+      },
+      maven = {
+        downloadSources = true,
+      },
+      implementationsCodeLens = {
+        enabled = true,
+      },
+      referencesCodeLens = {
+        enabled = true,
+      },
+      references = {
+        includeDecompiledSources = true,
+      },
+      format = {
+        settings = {
+          url = home .. "/code/styleguide/eclipse-java-styleguide.xml",
+          profile = "TwilioStyle"
+        }
+      },
+      completion = {
+        favoriteStaticMembers = {
+          "org.hamcrest.MatcherAssert.assertThat",
+          "org.hamcrest.Matchers.*",
+          "org.hamcrest.CoreMatchers.*",
+          "org.junit.jupiter.api.Assertions.*",
+          "java.util.Objects.requireNonNull",
+          "java.util.Objects.requireNonNullElse",
+          "org.mockito.Mockito.*",
+        },
+      },
     },
     -- java = {
     -- 	signatureHelp = { enabled = true },
