@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
       return;
     end
 
-    vim.opt_local.noexpandtab = true
+    vim.opt_local.expandtab = false
   end
 })
 
