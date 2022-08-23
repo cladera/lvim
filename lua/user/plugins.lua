@@ -18,12 +18,12 @@ lvim.plugins = {
   {
     "ThePrimeagen/harpoon",
   },
-  {
-    "folke/todo-comments.nvim",
-    config = function()
-      require("user.todo_comments").config()
-    end,
-  },
+  -- {
+  --   "folke/todo-comments.nvim",
+  --   config = function()
+  --     require("user.todo_comments").config()
+  --   end,
+  -- },
   -- {
   --   "iamcco/markdown-preview.nvim",
   --   run = "cd app && npm install",

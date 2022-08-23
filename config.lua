@@ -31,6 +31,8 @@ vim.opt.relativenumber = true
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<c-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<cr>"
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<cr>"
 
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<c-up>"] = ""
@@ -136,9 +138,9 @@ lvim.builtin.which_key.mappings["S"] = {
 -- lvim.builtin.terminal.active = true
 lvim.builtin.dap.active = true
 
-lvim.builtin.nvimtree.active = false
+lvim.builtin.nvimtree.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.git.enable = true
+lvim.builtin.nvimtree.setup.git.enable = false
 lvim.builtin.nvimtree.setup.git.timeout = 400
 lvim.builtin.nvimtree.setup.filters.custom = {
   "^\\.settings",
