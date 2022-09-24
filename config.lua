@@ -158,7 +158,11 @@ lvim.builtin.nvimtree.setup.filters.custom = {
   "^\\.project",
   "^\\.classpath",
   "^\\.factorypath",
-  "node_modules"
+  "node_modules",
+  ".git",
+  ".idea",
+  "^\\tmp",
+  ".mvn"
 }
 lvim.builtin.nvimtree.setup.log = {
   enable = true,
