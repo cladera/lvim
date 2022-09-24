@@ -24,11 +24,11 @@ lvim.plugins = {
   --     require("user.todo_comments").config()
   --   end,
   -- },
-  -- {
-  --   "iamcco/markdown-preview.nvim",
-  --   run = "cd app && npm install",
-  --   ft = "markdown",
-  -- },
+  {
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    ft = "markdown",
+  },
   { "mfussenegger/nvim-jdtls" },
   { "nvim-telescope/telescope-ui-select.nvim" },
   { "rcarriga/nvim-dap-ui" },
