@@ -168,7 +168,7 @@ lvim.builtin.nvimtree.setup.filters.custom = {
   ".mvn"
 }
 lvim.builtin.nvimtree.setup.log = {
-  enable = true,
+  enable = false,
   truncate = true,
   types = {
     git = true,
