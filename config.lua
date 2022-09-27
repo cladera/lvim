@@ -34,6 +34,9 @@ lvim.leader = "space"
 lvim.keys.normal_mode["<c-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<cr>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<cr>"
+lvim.keys.insert_mode["jk"] = "<Esc>"
+lvim.keys.insert_mode["jj"] = "<Esc>"
+lvim.keys.insert_mode["kk"] = "<Esc>"
 
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<c-up>"] = ""
@@ -216,6 +219,10 @@ lvim.builtin.telescope.extensions['ui-select'] = require("telescope.themes").get
 lvim.builtin.telescope.on_config_done = function(telescope)
   telescope.load_extension("ui-select")
 end
+
+local user_dashboard = require("user.alpha.dashboard");
+lvim.builtin.alpha.dashboard = { config = {}, section = user_dashboard.get_sections() }; 
+
 -- require("telescope").load_extension("ui-select")
 
 -- generic LSP settings
