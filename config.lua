@@ -64,8 +64,6 @@ lvim.keys.insert_mode["kk"] = "<Esc>"
 --   },
 -- }
 
--- lvim.builtin.alpha.dashboard.config['dashboard'] = "Twilio";
-
 -- use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["p"] = { "<cmd>telescope projects<cr>", "projects" }
 lvim.builtin.which_key.mappings["t"] = {
