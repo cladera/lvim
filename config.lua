@@ -9,12 +9,15 @@ an executable
 -- these are example configs feel free to change to whatever you want
 
 -- general
+vim.g.catppuccin_flavour = "macchiato"
 lvim.log.level = "warn"
 lvim.format_on_save = false
 -- lvim.colorscheme = "nord"
-lvim.colorscheme = "darkplus"
 -- lvim.colorscheme = "darcula"
 -- lvim.colorscheme = "spacedark"
+lvim.colorscheme = "darkplus"
+lvim.colorscheme = "tokyonight-night"
+lvim.colorscheme = "catppuccin"
 
 require "user.plugins"
 require "user.autocommands"

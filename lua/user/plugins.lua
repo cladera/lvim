@@ -33,7 +33,8 @@ lvim.plugins = {
   { "nvim-telescope/telescope-ui-select.nvim" },
   { "rcarriga/nvim-dap-ui" },
   { "doums/darcula" },
-  { "folke/tokyonight.nvim" },
+  -- { "folke/tokyonight.nvim" },
+  { "catppuccin/nvim" },
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
   { "christianchiarulli/nvim-gps", branch = "text_hl" }
