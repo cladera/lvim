@@ -124,6 +124,8 @@ lvim.builtin.which_key.mappings["r"] = {
   name = "Run+",
   c = { "<cmd>lua require('jdtls').test_class()<cr>", "Java Tests: Class" },
   m = { "<cmd>lua require('jdtls').test_nearest_method()<cr>", "Java Tests: Nearest  method" },
+  p = { "<cmd>lua require('jdtls').pick_test()<cr>", "Java Tests: Pick test" },
+  f = { "<cmd>lua require('jdtls').fetch_main_configs()<cr>", "Java Tests: Discover main functions" },
 }
 
 -- Extract actions
