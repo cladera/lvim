@@ -51,7 +51,12 @@ function resolve_main_class()
   local packagePath = vim.fn.strpart(currentBuffer, packageStart)
 
   return string.gsub(packagePath, "/", ".")
+end
 
+local jdtls_ok, jdtls = pcall(require, "jdtls")
+
+if jdtls_ok and jdtls.dap_ok then
+  jdtls.dap.setup_dap_main_class_configs();
 end
 
 dap.configurations.java = {
