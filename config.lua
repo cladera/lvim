@@ -164,9 +164,6 @@ lvim.builtin.treesitter.ensure_installed = {
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enable = true
 
-local user_dashboard = require("user.alpha.dashboard");
-lvim.builtin.alpha.dashboard = { config = {}, section = user_dashboard.get_sections() };
-
 -- Telescope extensions
 lvim.builtin.telescope.extensions['ui-select'] = require("telescope.themes").get_dropdown {
   winblend = 15,
