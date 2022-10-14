@@ -1,9 +1,3 @@
-[submodule "java/java-debug"]
-	path = java/java-debug
-	url = https://github.com/microsoft/java-debug.git
-[submodule "java/vscode-java-test"]
-	path = java/vscode-java-test
-	url = https://github.com/microsoft/vscode-java-test.git
 [submodule "java/checkstyle"]
 	path = java/checkstyle
 	url = https://github.com/checkstyle/checkstyle.git
