@@ -66,10 +66,10 @@ dap.listeners.after.event_initialized['dapui-config'] = function()
   dapui.open()
 end
 
-dap.listeners.after.event_terminated['dapui-config'] = function()
-  dapui.close()
-end
+-- dap.listeners.after.event_terminated['dapui-config'] = function()
+--   dapui.close()
+-- end
 
-dap.listeners.after.event_exited['dapui-config'] = function()
-  dapui.close()
-end
+-- dap.listeners.after.event_exited['dapui-config'] = function()
+--   dapui.close()
+-- end
