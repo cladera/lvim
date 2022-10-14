@@ -7,23 +7,10 @@ lvim.plugins = {
   {'arcticicestudio/nord-vim'},
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-surround' },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    -- event = "BufReadPre",
-    config = function()
-      require("user.blankline").config()
-    end,
-  },
   { 'editorconfig/editorconfig-vim' },
   {
     "ThePrimeagen/harpoon",
   },
-  -- {
-  --   "folke/todo-comments.nvim",
-  --   config = function()
-  --     require("user.todo_comments").config()
-  --   end,
-  -- },
   {
     "iamcco/markdown-preview.nvim",
     run = "cd app && npm install",
@@ -31,9 +18,7 @@ lvim.plugins = {
   },
   { "mfussenegger/nvim-jdtls" },
   { "nvim-telescope/telescope-ui-select.nvim" },
-  { "rcarriga/nvim-dap-ui" },
   { "doums/darcula" },
-  -- { "folke/tokyonight.nvim" },
   { "catppuccin/nvim" },
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
