@@ -7,6 +7,7 @@ a global executable or a path to
 an executable
 ]]
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
+--
 
 -- general
 vim.g.catppuccin_flavour = "macchiato"
@@ -51,7 +52,7 @@ lvim.keys.insert_mode["kk"] = "<Esc>"
 --   -- for input mode
 --   i = {
 --     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
+--     ["<C-k>"] = actions.move_selection_previous
 --     ["<C-n>"] = actions.cycle_history_next,
 --     ["<C-p>"] = actions.cycle_history_prev,
 --   },
@@ -91,6 +92,13 @@ lvim.builtin.which_key.mappings["G"] = {
   j = { "<cmd>diffget //3<cr>", "Accept Incomping" },
 }
 
+lvim.builtin.which_key.mappings["l"]["f"] = {
+  function()
+    require("lvim.lsp.utils").format { timeout_ms = 2000 }
+  end,
+  "Format",
+}
+
 local code_actions_copy = lvim.builtin.which_key.mappings["l"]["a"]
 lvim.builtin.which_key.mappings["l"]["a"] = {
   "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Actions"
@@ -109,14 +117,13 @@ end
 lvim.builtin.which_key.mappings["S"] = {
   name = "Quick settings",
   j = { ":setlocal ts=4 sw=4<cr>", "Set indent to 4" },
+  t = { ":setlocal autoindent noexpandtab ts=4 sw=4<cr>", "Use tabs" }
 }
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-
-lvim.builtin.notify.active = true
 
 lvim.builtin.terminal.active = true
 
