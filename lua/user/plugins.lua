@@ -23,6 +23,22 @@ lvim.plugins = {
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
   { "christianchiarulli/nvim-gps", branch = "text_hl" },
+  -- { "github/copilot.vim" }
+  { "zbirenbaum/copilot.lua",
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup()
+      end, 100)
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
   { "olexsmir/gopher.nvim" },
   { "leoluz/nvim-dap-go" },
   { "mbbill/undotree"}
