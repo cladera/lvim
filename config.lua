@@ -160,6 +160,8 @@ lvim.builtin.treesitter.ensure_installed = {
   -- "rust",
   "java",
   "yaml",
+  "go",
+  "gomod"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -210,7 +212,7 @@ lvim.lsp.document_highlight = false;
 -- local opts = {} -- check the lspconfig documentation for a list of all possible options
 -- require("lvim.lsp.manager").setup("pyright", opts)
 
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls", "gopls" })
 
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
 -- ---`:LvimInfo` lists which server(s) are skipped for the current filetype

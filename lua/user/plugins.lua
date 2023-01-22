@@ -23,5 +23,7 @@ lvim.plugins = {
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
   { "christianchiarulli/nvim-gps", branch = "text_hl" },
-  { "mbbill/undotree"},
+  { "olexsmir/gopher.nvim" },
+  { "leoluz/nvim-dap-go" },
+  { "mbbill/undotree"}
 }
