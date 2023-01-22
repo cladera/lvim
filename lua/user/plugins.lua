@@ -22,5 +22,6 @@ lvim.plugins = {
   { "catppuccin/nvim" },
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
-  { "christianchiarulli/nvim-gps", branch = "text_hl" }
+  { "christianchiarulli/nvim-gps", branch = "text_hl" },
+  { "mbbill/undotree"},
 }

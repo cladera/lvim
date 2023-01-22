@@ -24,6 +24,7 @@ require "user.dap"
 require "user.gps"
 require "user.harpoon"
 -- require "user.null-ls.checkstyle"
+require "user.undotree"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
