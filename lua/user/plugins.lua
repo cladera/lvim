@@ -4,7 +4,7 @@ lvim.plugins = {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
-  {'arcticicestudio/nord-vim'},
+  { 'arcticicestudio/nord-vim' },
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-surround' },
   { 'editorconfig/editorconfig-vim' },
@@ -23,6 +23,8 @@ lvim.plugins = {
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
   { "christianchiarulli/nvim-gps", branch = "text_hl" },
+  -- { "Equilibris/nx.nvim" },
+  { "mxsdev/nvim-dap-vscode-js" },
   -- { "github/copilot.vim" }
   { "zbirenbaum/copilot.lua",
     event = { "VimEnter" },
