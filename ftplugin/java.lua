@@ -201,6 +201,7 @@ local config = {
 
 config["on_attach"] = function(client, bufnr)
   local _, _ = pcall(vim.lsp.codelens.refresh)
+  require('jdtls.setup').add_commands()
   require("jdtls.dap").setup_dap_main_class_configs()
   require("jdtls").setup_dap({ hotcodereplace = "auto" })
   require("lvim.lsp").common_on_attach(client, bufnr)
@@ -257,8 +258,8 @@ local mappings = {
     o = { "<Cmd>lua require'jdtls'.organize_imports()<CR>", "Organize Imports" },
     v = { "<Cmd>lua require'jdtls'.extract_variable()<CR>", "Extract Variable" },
     c = { "<Cmd>lua require'jdtls'.extract_constant()<CR>", "Extract Constant" },
-    t = { java_test.test_nearest_method, "Test Method"},
-    T = { java_test.test_class, "Test Class"},
+    t = { java_test.test_nearest_method, "Test Method" },
+    T = { java_test.test_class, "Test Class" },
     u = { "<Cmd>JdtUpdateConfig<CR>", "Update Config" },
     b = { "<Cmd>JdtCompile<cr>", "Compile" },
   },
@@ -295,3 +296,23 @@ local vmappings = {
 
 which_key.register(mappings, opts)
 which_key.register(vmappings, vopts)
+
+-- local augroup = vim.api.nvim_create_augroup("pom_files")
+
+-- vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+--   group = augroup,
+--   callback = function()
+--     if vim.bo.filetype ~= "xml" then
+--       return;
+--     end
+
+--     if vim.fn.expand("%:t") ~= "pom.xml" then
+--       return;
+--     end
+
+--     vim.cmd('setlocal autoindent')
+--     vim.cmd('setlocal noexpandtab')
+--     vim.cmd('setlocal tabstop=4')
+--     vim.cmd('setlocal shiftwidth=4')
+--   end
+-- })
