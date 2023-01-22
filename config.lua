@@ -23,8 +23,8 @@ require "user.dap"
 -- require "user.dap.ui"
 require "user.gps"
 require "user.harpoon"
--- require "user.null-ls.checkstyle"
 require "user.undotree"
+require "user.null-ls.checkstyle"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -97,7 +97,8 @@ lvim.builtin.which_key.mappings["l"]["a"] = {
 }
 lvim.builtin.which_key.mappings["l"]["A"] = code_actions_copy;
 
-lvim.builtin.cmp.confirm_opts.select = true;
+-- lvim.builtin.cmp.confirm_opts.select = true;
+lvim.builtin.autopairs.active = false;
 
 lvim.builtin.dap.on_config_done = function()
   lvim.builtin.which_key.mappings["d"]["u"] = {
