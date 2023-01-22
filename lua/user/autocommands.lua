@@ -1,14 +1,3 @@
--- Set wrap true for Harpoon menu
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  callback = function()
-    if vim.bo.filetype ~= "harpoon" then
-      return;
-    end
-
-    vim.opt_local.wrap = true
-  end
-})
-
 -- Set no expandtab for Makefiles
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   callback = function()
@@ -20,15 +9,17 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end
 })
 
--- Set tab size to 4 for Java files
+-- change to tabs for php
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   callback = function()
-    if vim.bo.filetype ~= "java" then
+    if vim.bo.filetype ~= "php" then
       return;
     end
 
-    vim.opt_local.ts = 4
-    vim.opt_local.sw = 4
+    vim.cmd('setlocal autoindent')
+    vim.cmd('setlocal noexpandtab')
+    vim.cmd('setlocal tabstop=4')
+    vim.cmd('setlocal shiftwidth=4')
   end
 })
 
