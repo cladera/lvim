@@ -260,6 +260,8 @@ formatters.setup {
       "markdown"
     }
   },
+  { command = "goimports", filetypes = { "go" } },
+  { command = "gofumpt", filetypes = { "go" } },
 }
 
 -- -- set additional linters
@@ -310,3 +312,8 @@ linters.setup {
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+--
+
+-- LSP Custom --
+require("user.lsp.go")
+
