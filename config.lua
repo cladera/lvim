@@ -250,7 +250,16 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls", "go
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   { exe = "black" },
-  { command = "prettier", filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" } }
+  {
+    command = "prettier",
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "markdown"
+    }
+  },
 }
 
 -- -- set additional linters
