@@ -324,3 +324,4 @@ linters.setup {
 -- LSP Custom --
 require("user.lsp.go")
 
+require("nvim-treesitter.install").prefer_git = true
