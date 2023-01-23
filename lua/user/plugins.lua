@@ -13,7 +13,7 @@ lvim.plugins = {
   },
   {
     "iamcco/markdown-preview.nvim",
-    run = "cd app && npm install",
+    build = "cd app && npm install",
     ft = "markdown",
   },
   { "mfussenegger/nvim-jdtls" },
