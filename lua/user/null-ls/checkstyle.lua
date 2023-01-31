@@ -4,6 +4,7 @@ local helpers = require("null-ls.helpers")
 local home = os.getenv "HOME"
 local checkstyleJar = home .. "/code/checkstyle/checkstyle.jar"
 local checkstyleConfig = home .. "/code/checkstyle/checkstyle.xml"
+local enabled = true
 
 local severities = {
   ["ERR"] = 1,
@@ -27,9 +28,38 @@ local create_temp_file = function(path, content)
   tmp:close()
 end
 
-function file_exists(name)
+local function file_exists(name)
   local f = io.open(name, "r")
   if f ~= nil then io.close(f) return true else return false end
+end
+
+local project_env_config = vim.fn.getcwd() .. '/.vscode/checkstyle.json'
+
+if file_exists(project_env_config) then
+  local env = io.open(project_env_config, "r")
+
+  if env ~= nil then
+    local env_content = env:read("*all")
+    local env_json = vim.fn.json_decode(env_content)
+    if env_json ~= nil then
+      if env_json.enabled ~= nil then
+        enabled = env_json.enabled
+      end
+
+      if env_json.checkstyleJar ~= nil then
+        checkstyleJar = env_json.checkstyleJar
+      end
+
+      if env_json.checkstyleConfig ~= nil then
+        checkstyleConfig = env_json.checkstyleConfig
+      end
+    end
+    env:close()
+  end
+end
+
+if not enabled then
+  return
 end
 
 local resolve_checkststyle_path = function()
