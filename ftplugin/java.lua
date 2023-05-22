@@ -22,7 +22,7 @@ else
 end
 
 -- Find root of project
-local root_markers = { ".git/" }
+local root_markers = { "build.gradle", ".git/" }
 local root_dir = require("jdtls.setup").find_root(root_markers)
 if root_dir == "" then
   return
@@ -121,11 +121,11 @@ local config = {
           },
           {
             name = "JavaSE-17",
-            path = "~/.sdkman/candidates/java/17.0.3-zulu",
+            path = "~/.sdkman/candidates/java/17.0.6-zulu",
           },
           {
-            name = "JavaSE-18",
-            path = "~/.sdkman/candidates/java/18.0.2-open",
+            name = "JavaSE-19",
+            path = "~/.sdkman/candidates/java/19.0.2-zulu",
           },
         },
       },

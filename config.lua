@@ -1,5 +1,5 @@
 --[[
-lvim is the global options object
+Lvim is the global options object
 
 Linters should be
 filled in as strings with either
@@ -10,6 +10,19 @@ an executable
 --
 
 -- general
+--
+
+require("catppuccin").setup({
+  custom_highlights = function(colors)
+    return {
+      LineNr = {fg = colors.teal},
+      CursorLineNr = {fg = colors.green, bg = colors.base },
+      CursorLine = {bg = colors.base}
+    }
+  end
+})
+
+lvim.transparent_window = true
 vim.g.catppuccin_flavour = "macchiato"
 lvim.log.level = "warn"
 lvim.format_on_save = false
@@ -21,14 +34,16 @@ lvim.colorscheme = "catppuccin"
 require "user.plugins"
 require "user.autocommands"
 require "user.dap"
--- require "user.dap.ui"
 require "user.gps"
 require "user.harpoon"
 require "user.undotree"
 require "user.null-ls.checkstyle"
+require "user.lazygit"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.colorcolumn = "100"
+
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -79,9 +94,6 @@ lvim.builtin.which_key.mappings["t"] = {
   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 }
 
-lvim.builtin.which_key.mappings["g"]["g"] = {
-  "<cmd>Git<cr>", "Open changed files view",
-}
 lvim.builtin.which_key.mappings["g"]["f"] = {
   "<cmd>Git commit<cr>", "Commit changes"
 }
@@ -125,18 +137,21 @@ lvim.builtin.which_key.mappings["S"] = {
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 
+-- lvim.builtin.lualine.style = "default"
+
 lvim.builtin.terminal.active = true
 
 lvim.builtin.nvimtree.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.git.enable = false
 lvim.builtin.nvimtree.setup.git.timeout = 400
+lvim.builtin.nvimtree.setup.filters.dotfiles = false;
 lvim.builtin.nvimtree.setup.filters.custom = {
   "^\\.settings",
   "^\\.project",
   "^\\.classpath",
   "^\\.factorypath",
-  "node_modules",
+  -- "node_modules",
   ".git",
   ".idea",
   "^\\tmp",
@@ -150,9 +165,9 @@ lvim.builtin.nvimtree.setup.log = {
     profile = true
   },
 }
-lvim.builtin.nvimtree.group_empty = 1
+lvim.builtin.nvimtree.setup.renderer.group_empty = true
 
-lvim.builtin.project.manual_mode = true
+lvim.builtin.project.patterns = { ".git" }
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -264,11 +279,12 @@ formatters.setup {
       "javascriptreact",
       "typescript",
       "typescriptreact",
-      "markdown"
+      "markdown",
+      "scss"
     }
   },
   { command = "goimports", filetypes = { "go" } },
-  { command = "gofumpt", filetypes = { "go" } },
+  { command = "gofumpt",   filetypes = { "go" } },
 }
 
 -- -- set additional linters
@@ -323,5 +339,10 @@ linters.setup {
 
 -- LSP Custom --
 require("user.lsp.go")
+require("user.lsp.angular")
+require("user.lsp.kotlin")
 
 require("nvim-treesitter.install").prefer_git = true
+
+vim.api.nvim_set_hl(0, 'LineNr', { fg='#ff0000', bold=true })
+
