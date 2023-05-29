@@ -284,7 +284,8 @@ formatters.setup {
       "typescript",
       "typescriptreact",
       "markdown",
-      "scss"
+      "scss",
+      "html"
     }
   },
   { command = "goimports", filetypes = { "go" } },
