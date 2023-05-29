@@ -22,8 +22,9 @@ else
 end
 
 -- Find root of project
-local root_markers = { "build.gradle", ".git/" }
+local root_markers = { "build.gradle", ".git/", "mvnw" }
 local root_dir = require("jdtls.setup").find_root(root_markers)
+
 if root_dir == "" then
   return
 end
@@ -62,7 +63,7 @@ local config = {
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
-    "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
+    "-javaagent:" .. home .. "/.local/share/lvim/mason/packages/jdtls/lombok.jar",
     "-Xms1g",
     "--add-modules=ALL-SYSTEM",
     "--add-opens",
@@ -72,14 +73,14 @@ local config = {
 
     -- 💀
     "-jar",
-    vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    vim.fn.glob(home .. "/.local/share/lvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
     -- Must point to the                                                     Change this to
     -- eclipse.jdt.ls installation                                           the actual version
 
     -- 💀
     "-configuration",
-    home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. CONFIG,
+    home .. "/.local/share/lvim/mason/packages/jdtls/config_" .. CONFIG,
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
     -- Must point to the                      Change to one of `linux`, `win` or `mac`
     -- eclipse.jdt.ls installation            Depending on your system.
@@ -117,11 +118,11 @@ local config = {
         runtimes = {
           {
             name = "JavaSE-11",
-            path = "~/.sdkman/candidates/java/11.0.2-open",
+            path = "~/.sdkman/candidates/java/11.0.19-zulu",
           },
           {
             name = "JavaSE-17",
-            path = "~/.sdkman/candidates/java/17.0.6-zulu",
+            path = "~/.sdkman/candidates/java/17.0.7-zulu",
           },
           {
             name = "JavaSE-19",
@@ -233,21 +234,21 @@ if not status_ok then
 end
 
 local opts = {
-  mode = "n", -- NORMAL mode
+  mode = "n",     -- NORMAL mode
   prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
+  buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true,  -- use `silent` when creating keymaps
   noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
+  nowait = true,  -- use `nowait` when creating keymaps
 }
 
 local vopts = {
-  mode = "v", -- VISUAL mode
+  mode = "v",     -- VISUAL mode
   prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
+  buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true,  -- use `silent` when creating keymaps
   noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
+  nowait = true,  -- use `nowait` when creating keymaps
 }
 
 local java_test = require("user.dap.java")
@@ -277,9 +278,11 @@ local mappings = {
     g = {
       name = "Generate",
       m = { "<cmd>TermExec cmd=\"mvn archetype:generate\"<CR>", "Module" },
-      c = { "<cmd>TermExec cmd=\"mvn archetype:generate -DarchetypeGroupId=io.cucumber -DarchetypeArtifactId=cucumber-archetype -DarchetypeVersion=7.0.0\"<CR>",
+      c = {
+        "<cmd>TermExec cmd=\"mvn archetype:generate -DarchetypeGroupId=io.cucumber -DarchetypeArtifactId=cucumber-archetype -DarchetypeVersion=7.0.0\"<CR>",
         "Cucumber Module" },
-      s = { "<cmd>TermExec cmd=\"mvn archetype:generate -DarchetypeGroupId=com.github.netyjq -DarchetypeArtifactId=spring-boot-archetype -DarchetypeVersion=0.0.2.release\"<CR>",
+      s = {
+        "<cmd>TermExec cmd=\"mvn archetype:generate -DarchetypeGroupId=com.github.netyjq -DarchetypeArtifactId=spring-boot-archetype -DarchetypeVersion=0.0.2.release\"<CR>",
         "SpringBoot" },
     },
   }
