@@ -12,15 +12,19 @@ an executable
 -- general
 --
 
-require("catppuccin").setup({
-  custom_highlights = function(colors)
-    return {
-      LineNr = {fg = colors.teal},
-      CursorLineNr = {fg = colors.green, bg = colors.base },
-      CursorLine = {bg = colors.base}
-    }
-  end
-})
+local catppuccin_ok, catppuccin = pcall(require, "catppuccin")
+
+if catppuccin_ok then
+	catppuccin.setup({
+	  custom_highlights = function(colors)
+	    return {
+	      LineNr = {fg = colors.teal},
+	      CursorLineNr = {fg = colors.green, bg = colors.base },
+	      CursorLine = {bg = colors.base}
+	    }
+	  end
+	})
+end
 
 lvim.transparent_window = true
 vim.g.catppuccin_flavour = "macchiato"
