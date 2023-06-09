@@ -1,5 +1,4 @@
 local dap_ok, dap = pcall(require, "dap")
-local mason_ok, mason = pcall(require, "mason-registry")
 local dap_vscode_js_ok = pcall(require, "dap-vscode-js")
 
 if not dap_ok then
@@ -10,19 +9,12 @@ local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
 
 if dap_vscode_js_ok then
   require("dap-vscode-js").setup {
-    debugger_path = mason_path .. "packages/js-debug-adapter", -- Path to vscode-js-debug installation.
+    debugger_path = mason_path .. "packages/js-debug-adapter",                                   -- Path to vscode-js-debug installation.
     adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
   }
 
   local function resolve_nx_jest_config()
-    local currentBufferPath = vim.fn.fnamemodify(vim.fn.expand("%"), ":h")
-    local sourcePathPos = vim.fn.stridx(currentBufferPath, "/src")
-    if sourcePathPos < 0 then
-      sourcePathPos = vim.fn.stridx(currentBufferPath, "/tests")
-    end
-    local projectRoot = vim.fn.strpart(currentBufferPath, 0, sourcePathPos)
-
-    return projectRoot .. "/jest.config.ts"
+    return vim.fn.findfile("jest.config.ts", ".;")
   end
 
   local function resolve_nx_jest_args()
@@ -33,8 +25,66 @@ if dap_vscode_js_ok then
     return vim.fn.getcwd() .. "/node_modules/.bin/jest"
   end
 
+  local function resolve_mocha_config()
+    return vim.fn.findfile(".mocharc.js", ".;")
+  end
+
+  local function get_mocha_grep()
+    local grep = nil
+    local node = vim.treesitter.get_node()
+    local maxAppends = 4
+
+    while node do
+      if node:type() == "call_expression" then
+        local fn = vim.treesitter.get_node_text(node:child(0), 0)
+        if fn == "it" or fn == "describe" then
+          local arguments = node:child(1)
+          local spec = vim.treesitter.get_node_text(arguments:child(1):child(1), 0)
+          if grep == nil then
+            grep = spec
+          else
+            grep = spec .. " " .. grep
+          end
+          maxAppends = maxAppends - 1
+          if maxAppends == 0 then
+            break
+          end
+        end
+      end
+      node = node:parent()
+    end
+    return grep
+  end
+
+  local function resolve_mocha_args()
+    local args = { "--config", resolve_mocha_config(), "--timeouts", "9999999" }
+    local grep = get_mocha_grep()
+
+    if grep ~= nil then
+      table.insert(args, "--grep")
+      table.insert(args, "\"" .. grep .. "\"")
+    end
+    return args
+  end
+
+  local function resolve_mocha_program()
+    return vim.fn.getcwd() .. "/node_modules/.bin/_mocha"
+  end
+
+
   for _, language in ipairs { "typescript", "javascript", "typescriptreact" } do
     require("dap").configurations[language] = {
+      {
+        type = "pwa-node",
+        request = "launch",
+        name = "Debug Mocha Current Tests",
+        runtimeExecutable = resolve_mocha_program,
+        runtimeArgs = resolve_mocha_args,
+        rootPath = "${workspaceFolder}",
+        cwd = "${workspaceFolder}",
+        console = "integratedTerminal",
+        internalConsoleOptions = "neverOpen",
+      },
       {
         type = "pwa-node",
         request = "launch",
@@ -133,30 +183,30 @@ end
 
 dap.configurations.java = {
   {
-    type = "java";
-    request = "attach";
-    name = "Java Attach";
-    hostName = "localhost";
-    port = 5005;
+    type = "java",
+    request = "attach",
+    name = "Java Attach",
+    hostName = "localhost",
+    port = 5005,
   },
   {
-    type = "java";
-    request = "launch";
-    name = "Java: Dropwizard Server";
-    mainClass = resolve_main_class;
+    type = "java",
+    request = "launch",
+    name = "Java: Dropwizard Server",
+    mainClass = resolve_main_class,
     args = "server"
   },
   {
-    type = "java";
-    request = "launch";
-    name = "Java: Spring";
-    mainClass = resolve_main_class;
+    type = "java",
+    request = "launch",
+    name = "Java: Spring",
+    mainClass = resolve_main_class,
   },
 }
 
-require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. "/.vscode/launch.json", {
-  node2 = { 'javascript', 'typescript', 'typescriptreact' }
-})
+-- require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. "/.vscode/launch.json", {
+--   node2 = { 'javascript', 'typescript', 'typescriptreact' }
+-- })
 
 
 -- Go --
