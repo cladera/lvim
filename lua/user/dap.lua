@@ -110,7 +110,31 @@ if dap_vscode_js_ok then
         cwd = "${workspaceFolder}",
         console = "integratedTerminal",
         internalConsoleOptions = "neverOpen",
-      }
+      },
+      {
+        type = "pwa-node",
+        request = "attach",
+        name = "Node.js Attach (5860)",
+        processId = require 'dap.utils'.pick_process,
+        port = 5860,
+        cwd = "${workspaceFolder}",
+      },
+      {
+        type = "pwa-node",
+        request = "attach",
+        name = "Node.js Attach (5858)",
+        processId = require 'dap.utils'.pick_process,
+        port = 5858,
+        cwd = "${workspaceFolder}",
+      },
+      {
+        type = "pwa-node",
+        request = "attach",
+        name = "Node.js Attach (9229)",
+        processId = require 'dap.utils'.pick_process,
+        port = 9229,
+        cwd = "${workspaceFolder}",
+      },
     }
   end
 end

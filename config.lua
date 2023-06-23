@@ -15,19 +15,21 @@ an executable
 local catppuccin_ok, catppuccin = pcall(require, "catppuccin")
 
 if catppuccin_ok then
-	catppuccin.setup({
-	  custom_highlights = function(colors)
-	    return {
-	      LineNr = {fg = colors.teal},
-	      CursorLineNr = {fg = colors.green, bg = colors.base },
-	      CursorLine = {bg = colors.base}
-	    }
-	  end
-	})
+  catppuccin.setup({
+    custom_highlights = function(colors)
+      return {
+        LineNr = { fg = colors.teal },
+        LineNrAbove = { fg = colors.peach },
+        CursorLineNr = { fg = colors.text, bg = colors.surface1 },
+        CursorLine = { bg = colors.surface1 },
+        NvimTreeWinSeparator = { bg = "none" },
+      }
+    end
+  })
 end
 
 lvim.transparent_window = true
-vim.g.catppuccin_flavour = "macchiato"
+vim.g.catppuccin_flavour = "mocha"
 lvim.log.level = "warn"
 lvim.format_on_save = false
 -- lvim.colorscheme = "tokyonight"
@@ -141,7 +143,7 @@ lvim.builtin.which_key.mappings["S"] = {
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 
--- lvim.builtin.lualine.style = "default"
+require "user/lualine"
 
 lvim.builtin.terminal.active = true
 
@@ -171,7 +173,8 @@ lvim.builtin.nvimtree.setup.log = {
 }
 lvim.builtin.nvimtree.setup.renderer.group_empty = true
 
-lvim.builtin.project.patterns = { ".git" }
+lvim.builtin.project.manual_mode = true
+-- lvim.builtin.project.patterns = { ".git" }
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -345,9 +348,9 @@ linters.setup {
 -- LSP Custom --
 require("user.lsp.go")
 require("user.lsp.angular")
-require("user.lsp.kotlin")
+require("user.lsp.sqlls")
+-- require("user.lsp.kotlin")
 
 require("nvim-treesitter.install").prefer_git = true
 
-vim.api.nvim_set_hl(0, 'LineNr', { fg='#ff0000', bold=true })
-
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#ff0000', bold = true })
