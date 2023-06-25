@@ -13,23 +13,7 @@ if dap_vscode_js_ok then
     adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
   }
 
-  local function resolve_nx_jest_config()
-    return vim.fn.findfile("jest.config.ts", ".;")
-  end
-
-  local function resolve_nx_jest_args()
-    return { "${fileBasenameNoExtension}", '--config', resolve_nx_jest_config(), "--runInBand" }
-  end
-
-  local function resolve_jest_program()
-    return vim.fn.getcwd() .. "/node_modules/.bin/jest"
-  end
-
-  local function resolve_mocha_config()
-    return vim.fn.findfile(".mocharc.js", ".;")
-  end
-
-  local function get_mocha_grep()
+  local function get_test_at_cursor()
     local grep = nil
     local node = vim.treesitter.get_node()
     local maxAppends = 4
@@ -56,13 +40,47 @@ if dap_vscode_js_ok then
     return grep
   end
 
+
+  local function resolve_nx_jest_config()
+    return vim.fn.findfile("jest.config.ts", ".;")
+  end
+
+  local function resolve_nx_jest_args(forTest)
+    local args = { "${fileBasenameNoExtension}", '--config', resolve_nx_jest_config(), "--runInBand" }
+    if forTest == true then
+      local test = get_test_at_cursor()
+
+      if test ~= nil then
+        table.insert(args, "-t")
+        table.insert(args, test)
+      end
+    end
+    return args
+  end
+
+  local function resolve_nx_jest_args_for_test()
+    return resolve_nx_jest_args(true)
+  end
+
+  local function resolve_nx_jest_args_for_file()
+    return resolve_nx_jest_args(false)
+  end
+
+  local function resolve_jest_program()
+    return vim.fn.getcwd() .. "/node_modules/.bin/jest"
+  end
+
+  local function resolve_mocha_config()
+    return vim.fn.findfile(".mocharc.js", ".;")
+  end
+
   local function resolve_mocha_args()
     local args = { "--config", resolve_mocha_config(), "--timeouts", "9999999" }
-    local grep = get_mocha_grep()
+    local test = get_test_at_cursor()
 
-    if grep ~= nil then
+    if test ~= nil then
       table.insert(args, "--grep")
-      table.insert(args, "\"" .. grep .. "\"")
+      table.insert(args, "\"" .. test .. "\"")
     end
     return args
   end
@@ -88,13 +106,9 @@ if dap_vscode_js_ok then
       {
         type = "pwa-node",
         request = "launch",
-        name = "Debug Jest Tests",
-        -- trace = true, -- include debugger info
-        runtimeExecutable = "node",
-        runtimeArgs = {
-          "./node_modules/jest/bin/jest.js",
-          "--runInBand",
-        },
+        name = "NX: Run all tests in file",
+        runtimeExecutable = resolve_jest_program,
+        runtimeArgs = resolve_nx_jest_args_for_file,
         rootPath = "${workspaceFolder}",
         cwd = "${workspaceFolder}",
         console = "integratedTerminal",
@@ -103,9 +117,9 @@ if dap_vscode_js_ok then
       {
         type = "pwa-node",
         request = "launch",
-        name = "NX: Jest current file",
+        name = "NX: Run this test",
         runtimeExecutable = resolve_jest_program,
-        runtimeArgs = resolve_nx_jest_args,
+        runtimeArgs = resolve_nx_jest_args_for_test,
         rootPath = "${workspaceFolder}",
         cwd = "${workspaceFolder}",
         console = "integratedTerminal",

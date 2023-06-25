@@ -288,7 +288,9 @@ formatters.setup {
       "typescriptreact",
       "markdown",
       "scss",
-      "html"
+      "html",
+      "json",
+      "yaml",
     }
   },
   { command = "goimports", filetypes = { "go" } },
@@ -316,11 +318,11 @@ formatters.setup {
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
   { exe = "flake8" },
-  -- {
-  --   exe = "eslint_d",
-  --   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-  --   filetypes = { "javascript", "javascriptreact" },
-  -- },
+  {
+    exe = "eslint_d",
+    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+    filetypes = { "javascript", "javascriptreact", "typescript" },
+  },
 }
 -- Additional Plugins
 -- lvim.plugins = {
