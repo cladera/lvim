@@ -148,31 +148,34 @@ require "user/lualine"
 
 lvim.builtin.terminal.active = true
 
-lvim.builtin.nvimtree.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.git.enable = false
-lvim.builtin.nvimtree.setup.git.timeout = 400
-lvim.builtin.nvimtree.setup.filters.dotfiles = false;
-lvim.builtin.nvimtree.setup.filters.custom = {
-  "^\\.settings",
-  "^\\.project",
-  "^\\.classpath",
-  "^\\.factorypath",
-  -- "node_modules",
-  ".git",
-  ".idea",
-  "^\\tmp",
-  ".mvn"
+lvim.builtin.which_key.mappings['e'] = {
+  "<cmd>Ex<CR>", "Explorer (nvim)"
 }
-lvim.builtin.nvimtree.setup.log = {
-  enable = false,
-  truncate = true,
-  types = {
-    git = true,
-    profile = true
-  },
-}
-lvim.builtin.nvimtree.setup.renderer.group_empty = true
+lvim.builtin.nvimtree.active = false
+-- lvim.builtin.nvimtree.setup.view.side = "left"
+-- lvim.builtin.nvimtree.setup.git.enable = false
+-- lvim.builtin.nvimtree.setup.git.timeout = 400
+-- lvim.builtin.nvimtree.setup.filters.dotfiles = false;
+-- lvim.builtin.nvimtree.setup.filters.custom = {
+--   "^\\.settings",
+--   "^\\.project",
+--   "^\\.classpath",
+--   "^\\.factorypath",
+--   -- "node_modules",
+--   ".git",
+--   ".idea",
+--   "^\\tmp",
+--   ".mvn"
+-- }
+-- lvim.builtin.nvimtree.setup.log = {
+--   enable = false,
+--   truncate = true,
+--   types = {
+--     git = true,
+--     profile = true
+--   },
+-- }
+-- lvim.builtin.nvimtree.setup.renderer.group_empty = true
 
 lvim.builtin.project.manual_mode = true
 -- lvim.builtin.project.patterns = { ".git" }
