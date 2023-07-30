@@ -22,7 +22,7 @@ lvim.plugins = {
   { "catppuccin/nvim" },
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
-  { "christianchiarulli/nvim-gps", branch = "text_hl" },
+  { "christianchiarulli/nvim-gps",            branch = "text_hl" },
   -- { "Equilibris/nx.nvim" },
   { "mxsdev/nvim-dap-vscode-js" },
   -- { "github/copilot.vim" }
@@ -43,5 +43,16 @@ lvim.plugins = {
   -- },
   { "olexsmir/gopher.nvim" },
   { "leoluz/nvim-dap-go" },
-  { "mbbill/undotree"}
+  { "mbbill/undotree" },
+  {
+    "someone-stole-my-name/yaml-companion.nvim",
+    dependencies = {
+      { "neovim/nvim-lspconfig" },
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim" },
+    },
+    config = function()
+      require("telescope").load_extension("yaml_schema")
+    end,
+  }
 }

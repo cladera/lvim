@@ -355,8 +355,9 @@ linters.setup {
 require("user.lsp.go")
 require("user.lsp.angular")
 require("user.lsp.sqlls")
+require("user.lsp.yaml")
 -- require("user.lsp.kotlin")
 
 require("nvim-treesitter.install").prefer_git = true
 
-vim.api.nvim_set_hl(0, 'LineNr', { fg = '#ff0000', bold = true })
+
