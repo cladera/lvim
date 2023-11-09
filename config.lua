@@ -52,6 +52,11 @@ vim.opt.colorcolumn = "100"
 vim.opt.clipboard = ""
 
 
+-- use treesitter folding
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
 -- add your own keymapping
