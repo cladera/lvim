@@ -5,6 +5,10 @@ if not dap_ok then
   return
 end
 
+lvim.builtin.which_key.mappings['d']['l'] = {
+  "<cmd>lua require'dap'.run_last()<CR>", "Run last"
+}
+
 local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
 
 if dap_vscode_js_ok then
@@ -37,7 +41,7 @@ if dap_vscode_js_ok then
       end
       node = node:parent()
     end
-    return grep
+    return string.gsub(grep, "([()])", "\\%1");
   end
 
 
@@ -74,20 +78,68 @@ if dap_vscode_js_ok then
     return vim.fn.findfile(".mocharc.js", ".;")
   end
 
-  local function resolve_mocha_args()
-    local args = { "--config", resolve_mocha_config(), "--timeouts", "9999999" }
-    local test = get_test_at_cursor()
+  local function resolve_mocha_args(extra)
+    return function()
+      local args = { "--config", resolve_mocha_config(), "--timeouts", "9999999" }
+      local test = get_test_at_cursor()
 
-    if test ~= nil then
-      table.insert(args, "--grep")
-      table.insert(args, "\"" .. test .. "\"")
+      if test ~= nil then
+        table.insert(args, "--grep")
+        table.insert(args, "\"" .. test .. "\"")
+      end
+      if extra ~= nil then
+        for value in extra do
+          table.insert(args, value)
+        end
+      end
+      print(vim.inspect(args))
+      return args
     end
-    return args
+  end
+
+  local function resolve_jest_args()
+    local args = {
+      "${workspaceFolder}/node_modules/.bin/jest",
+      "${relativeFileDirname}/${fileBasenameNoExtension}",
+      "--runInBand",
+      "--config",
+      vim.fn.findfile("jest.config.js", ".;"),
+      "--testNamePattern",
+      get_test_at_cursor(),
+    }
+    return args;
   end
 
   local function resolve_mocha_program()
     return vim.fn.getcwd() .. "/node_modules/.bin/_mocha"
   end
+
+  local function ask_port()
+    return vim.fn.input('Port:')
+  end
+  -- {
+  --   "args": [
+  --     "--colors",
+  --     "--max-old-space-size=8192",
+  --     "--no-warnings",
+  --     "--exit",
+  --     "--timeout",
+  --     "99999s",
+  --     "--require",
+  --     "./test/init-validators.js",
+  --     "--require",
+  --     "./test/init.js",
+  --     "${file}"
+  --   ],
+  --   "internalConsoleOptions": "openOnSessionStart",
+  --   "name": "Run tests in current file",
+  --   "program": "${workspaceFolder}/node_modules/.bin/_mocha",
+  --   "request": "launch",
+  --   "skipFiles": [
+  --     "<node_internals>/**"
+  --   ],
+  --   "type": "node"
+  -- },
 
 
   for _, language in ipairs { "typescript", "javascript", "typescriptreact" } do
@@ -97,7 +149,48 @@ if dap_vscode_js_ok then
         request = "launch",
         name = "Debug Mocha Current Tests",
         runtimeExecutable = resolve_mocha_program,
-        runtimeArgs = resolve_mocha_args,
+        runtimeArgs = resolve_mocha_args(),
+        rootPath = "${workspaceFolder}",
+        cwd = "${workspaceFolder}",
+        console = "integratedTerminal",
+        internalConsoleOptions = "neverOpen",
+      },
+      {
+        type = "pwa-node",
+        request = "launch",
+        name = "Debug Mocha Current Tests (api2)",
+        runtimeExecutable = resolve_mocha_program,
+        runtimeArgs = function()
+          local test_at_cursor = get_test_at_cursor()
+          local args = {
+            "--colors",
+            "--max-old-space-size=8192",
+            "--no-warnings",
+            "--exit",
+            "--timeout",
+            "99999s",
+            "--require",
+            "./test/init-validators.js",
+            "--require",
+            "./test/init.js",
+            "--grep",
+            test_at_cursor
+          }
+          print(vim.inspect(args))
+          return args;
+        end,
+        rootPath = "${workspaceFolder}",
+        cwd = "${workspaceFolder}",
+        console = "integratedTerminal",
+        internalConsoleOptions = "openOnSessionStart",
+        skipFiles = { "<node_internals>/**" },
+      },
+      {
+        type = "pwa-node",
+        request = "launch",
+        name = "Debug Jest Current Tests",
+        runtimeExecutable = "node",
+        runtimeArgs = resolve_jest_args,
         rootPath = "${workspaceFolder}",
         cwd = "${workspaceFolder}",
         console = "integratedTerminal",
@@ -128,6 +221,14 @@ if dap_vscode_js_ok then
       {
         type = "pwa-node",
         request = "attach",
+        name = "Node.js Attach (9229)",
+        processId = require 'dap.utils'.pick_process,
+        port = 9229,
+        cwd = "${workspaceFolder}",
+      },
+      {
+        type = "pwa-node",
+        request = "attach",
         name = "Node.js Attach (5860)",
         processId = require 'dap.utils'.pick_process,
         port = 5860,
@@ -144,9 +245,17 @@ if dap_vscode_js_ok then
       {
         type = "pwa-node",
         request = "attach",
-        name = "Node.js Attach (9229)",
+        name = "Node.js Attach (5961)",
         processId = require 'dap.utils'.pick_process,
-        port = 9229,
+        port = 5961,
+        cwd = "${workspaceFolder}",
+      },
+      {
+        type = "pwa-node",
+        request = "attach",
+        name = "Node debug",
+        processId = require 'dap.utils'.pick_process,
+        port = ask_port,
         cwd = "${workspaceFolder}",
       },
     }
@@ -245,7 +354,6 @@ dap.configurations.java = {
 -- require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. "/.vscode/launch.json", {
 --   node2 = { 'javascript', 'typescript', 'typescriptreact' }
 -- })
-
 
 -- Go --
 local dapgo_ok, dapgo = pcall(require, "dap-go")
