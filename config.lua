@@ -153,9 +153,13 @@ require "user/lualine"
 
 lvim.builtin.terminal.active = true
 
+-- Explore config
+vim.g.netrw_winsize = 15
 lvim.builtin.which_key.mappings['e'] = {
-  "<cmd>Ex<CR>", "Explorer (nvim)"
+  "<cmd>Lexplore<CR>", "Explore (Netrw)"
 }
+
+
 lvim.builtin.nvimtree.active = false
 -- lvim.builtin.nvimtree.setup.view.side = "left"
 -- lvim.builtin.nvimtree.setup.git.enable = false
@@ -365,4 +369,8 @@ require("user.lsp.yaml")
 
 require("nvim-treesitter.install").prefer_git = true
 
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#ff0000', bold = true })
 
+if vim.fn.executable("nvr") == 1 then
+  vim.env.GIT_EDITOR = "nvr --remote-tab-wait +'set bufhidden=delete'"
+end

@@ -22,7 +22,10 @@ lvim.plugins = {
   { "catppuccin/nvim" },
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
-  { "christianchiarulli/nvim-gps",            branch = "text_hl" },
+  {
+    "christianchiarulli/nvim-gps",
+    branch = "text_hl"
+  },
   -- { "Equilibris/nx.nvim" },
   { "mxsdev/nvim-dap-vscode-js" },
   -- { "github/copilot.vim" }
@@ -54,5 +57,10 @@ lvim.plugins = {
     config = function()
       require("telescope").load_extension("yaml_schema")
     end,
+    "kdheepak/lazygit.nvim",
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
   }
 }
