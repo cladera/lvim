@@ -156,7 +156,14 @@ lvim.builtin.terminal.active = true
 -- Explore config
 vim.g.netrw_winsize = 15
 lvim.builtin.which_key.mappings['e'] = {
-  "<cmd>Lexplore<CR>", "Explore (Netrw)"
+  "<cmd>Lexplore %:h<CR><CR>", "Explore (Netrw)"
+}
+
+lvim.builtin.which_key.mappings['n'] = {
+  function()
+    local fname = vim.fn.input("New file name:");
+    vim.cmd('e %:h/' .. fname)
+  end, "Explore (Netrw)"
 }
 
 
