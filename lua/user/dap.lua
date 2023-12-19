@@ -44,34 +44,60 @@ if dap_vscode_js_ok then
     return string.gsub(grep, "([()])", "\\%1");
   end
 
+  local function resolve_nx_test_runner()
+    if vim.fn.findfile("vite.config.ts", ".:") ~= nil then
+      return "vite"
+    end
 
-  local function resolve_nx_jest_config()
-    return vim.fn.findfile("jest.config.ts", ".;")
+    if vim.fn.findfile("jest.config.ts", ".:") ~= nil then
+      return "jest"
+    end
+
+    return nil
   end
 
-  local function resolve_nx_jest_args(forTest)
-    local args = { "${fileBasenameNoExtension}", '--config', resolve_nx_jest_config(), "--runInBand" }
-    if forTest == true then
-      local test = get_test_at_cursor()
+  local function resolve_nx_test_config(runner)
+    return vim.fn.findfile(runner .. ".config.ts", ".;")
+  end
 
-      if test ~= nil then
-        table.insert(args, "-t")
-        table.insert(args, test)
+  local function resolve_nx_test_args(all)
+    return function()
+      local runner = resolve_nx_test_runner()
+      local config = resolve_nx_test_config(runner)
+      local args = { "${fileBasenameNoExtension}", '--config', config }
+
+      if runner == "jest" then
+        table.insert(args, "--runInBand")
+      end
+
+      if runner == "vite" then
+        table.insert(args, "--run")
+      end
+
+      if all == false then
+        local test = get_test_at_cursor()
+
+        if test ~= nil then
+          table.insert(args, "-t")
+          table.insert(args, test)
+        end
+      end
+      return args
+    end
+  end
+
+  local function resolve_nx_test_program()
+    return function()
+      local runner = resolve_nx_test_runner()
+
+      if runner == 'vite' then
+        return vim.fn.getcwd() .. "/node_modules/.bin/vitest"
+      end
+
+      if runner == 'jest' then
+        return vim.fn.getcwd() .. "/node_modules/.bin/jest"
       end
     end
-    return args
-  end
-
-  local function resolve_nx_jest_args_for_test()
-    return resolve_nx_jest_args(true)
-  end
-
-  local function resolve_nx_jest_args_for_file()
-    return resolve_nx_jest_args(false)
-  end
-
-  local function resolve_jest_program()
-    return vim.fn.getcwd() .. "/node_modules/.bin/jest"
   end
 
   local function resolve_mocha_config()
@@ -115,39 +141,15 @@ if dap_vscode_js_ok then
   end
 
   local function ask_port()
-    return vim.fn.input('Port:')
+    return vim.fn.input('Port: ')
   end
-  -- {
-  --   "args": [
-  --     "--colors",
-  --     "--max-old-space-size=8192",
-  --     "--no-warnings",
-  --     "--exit",
-  --     "--timeout",
-  --     "99999s",
-  --     "--require",
-  --     "./test/init-validators.js",
-  --     "--require",
-  --     "./test/init.js",
-  --     "${file}"
-  --   ],
-  --   "internalConsoleOptions": "openOnSessionStart",
-  --   "name": "Run tests in current file",
-  --   "program": "${workspaceFolder}/node_modules/.bin/_mocha",
-  --   "request": "launch",
-  --   "skipFiles": [
-  --     "<node_internals>/**"
-  --   ],
-  --   "type": "node"
-  -- },
-
 
   for _, language in ipairs { "typescript", "javascript", "typescriptreact" } do
     require("dap").configurations[language] = {
       {
         type = "pwa-node",
         request = "launch",
-        name = "Debug Mocha Current Tests",
+        name = "Mocha: test",
         runtimeExecutable = resolve_mocha_program,
         runtimeArgs = resolve_mocha_args(),
         rootPath = "${workspaceFolder}",
@@ -155,40 +157,40 @@ if dap_vscode_js_ok then
         console = "integratedTerminal",
         internalConsoleOptions = "neverOpen",
       },
+      -- {
+      --   type = "pwa-node",
+      --   request = "launch",
+      --   name = "Debug Mocha Current Tests (api2)",
+      --   runtimeExecutable = resolve_mocha_program,
+      --   runtimeArgs = function()
+      --     local test_at_cursor = get_test_at_cursor()
+      --     local args = {
+      --       "--colors",
+      --       "--max-old-space-size=8192",
+      --       "--no-warnings",
+      --       "--exit",
+      --       "--timeout",
+      --       "99999s",
+      --       "--require",
+      --       "./test/init-validators.js",
+      --       "--require",
+      --       "./test/init.js",
+      --       "--grep",
+      --       test_at_cursor
+      --     }
+      --     print(vim.inspect(args))
+      --     return args;
+      --   end,
+      --   rootPath = "${workspaceFolder}",
+      --   cwd = "${workspaceFolder}",
+      --   console = "integratedTerminal",
+      --   internalConsoleOptions = "openOnSessionStart",
+      --   skipFiles = { "<node_internals>/**" },
+      -- },
       {
         type = "pwa-node",
         request = "launch",
-        name = "Debug Mocha Current Tests (api2)",
-        runtimeExecutable = resolve_mocha_program,
-        runtimeArgs = function()
-          local test_at_cursor = get_test_at_cursor()
-          local args = {
-            "--colors",
-            "--max-old-space-size=8192",
-            "--no-warnings",
-            "--exit",
-            "--timeout",
-            "99999s",
-            "--require",
-            "./test/init-validators.js",
-            "--require",
-            "./test/init.js",
-            "--grep",
-            test_at_cursor
-          }
-          print(vim.inspect(args))
-          return args;
-        end,
-        rootPath = "${workspaceFolder}",
-        cwd = "${workspaceFolder}",
-        console = "integratedTerminal",
-        internalConsoleOptions = "openOnSessionStart",
-        skipFiles = { "<node_internals>/**" },
-      },
-      {
-        type = "pwa-node",
-        request = "launch",
-        name = "Debug Jest Current Tests",
+        name = "Jest: test",
         runtimeExecutable = "node",
         runtimeArgs = resolve_jest_args,
         rootPath = "${workspaceFolder}",
@@ -199,9 +201,9 @@ if dap_vscode_js_ok then
       {
         type = "pwa-node",
         request = "launch",
-        name = "NX: Run all tests in file",
-        runtimeExecutable = resolve_jest_program,
-        runtimeArgs = resolve_nx_jest_args_for_file,
+        name = "NX: test all",
+        runtimeExecutable = resolve_nx_test_program(),
+        runtimeArgs = resolve_nx_test_args(true),
         rootPath = "${workspaceFolder}",
         cwd = "${workspaceFolder}",
         console = "integratedTerminal",
@@ -210,9 +212,9 @@ if dap_vscode_js_ok then
       {
         type = "pwa-node",
         request = "launch",
-        name = "NX: Run this test",
-        runtimeExecutable = resolve_jest_program,
-        runtimeArgs = resolve_nx_jest_args_for_test,
+        name = "NX: test",
+        runtimeExecutable = resolve_nx_test_program(),
+        runtimeArgs = resolve_nx_test_args(false),
         rootPath = "${workspaceFolder}",
         cwd = "${workspaceFolder}",
         console = "integratedTerminal",
@@ -221,97 +223,46 @@ if dap_vscode_js_ok then
       {
         type = "pwa-node",
         request = "attach",
-        name = "Node.js Attach (9229)",
-        processId = require 'dap.utils'.pick_process,
-        port = 9229,
-        cwd = "${workspaceFolder}",
-      },
-      {
-        type = "pwa-node",
-        request = "attach",
-        name = "Node.js Attach (5860)",
-        processId = require 'dap.utils'.pick_process,
-        port = 5860,
-        cwd = "${workspaceFolder}",
-      },
-      {
-        type = "pwa-node",
-        request = "attach",
-        name = "Node.js Attach (5858)",
-        processId = require 'dap.utils'.pick_process,
-        port = 5858,
-        cwd = "${workspaceFolder}",
-      },
-      {
-        type = "pwa-node",
-        request = "attach",
-        name = "Node.js Attach (5961)",
-        processId = require 'dap.utils'.pick_process,
-        port = 5961,
-        cwd = "${workspaceFolder}",
-      },
-      {
-        type = "pwa-node",
-        request = "attach",
         name = "Node debug",
-        processId = require 'dap.utils'.pick_process,
         port = ask_port,
         cwd = "${workspaceFolder}",
+        autoAttachChildProcesses = true,
       },
+      -- {
+      --   type = "pwa-node",
+      --   request = "attach",
+      --   name = "Node.js Attach (9229)",
+      --   processId = require 'dap.utils'.pick_process,
+      --   port = 9229,
+      --   cwd = "${workspaceFolder}",
+      -- },
+      -- {
+      --   type = "pwa-node",
+      --   request = "attach",
+      --   name = "Node.js Attach (5860)",
+      --   processId = require 'dap.utils'.pick_process,
+      --   port = 5860,
+      --   cwd = "${workspaceFolder}",
+      -- },
+      -- {
+      --   type = "pwa-node",
+      --   request = "attach",
+      --   name = "Node.js Attach (5858)",
+      --   processId = require 'dap.utils'.pick_process,
+      --   port = 5858,
+      --   cwd = "${workspaceFolder}",
+      -- },
+      -- {
+      --   type = "pwa-node",
+      --   request = "attach",
+      --   name = "Node.js Attach (5961)",
+      --   processId = require 'dap.utils'.pick_process,
+      --   port = 5961,
+      --   cwd = "${workspaceFolder}",
+      -- },
     }
   end
 end
-
--- if mason_ok and mason.is_installed("node-debug2-adapter") then
---   dap.adapters.node2 = {
---     type = 'executable',
---     command = 'node',
---     args = { vim.fn.stdpath("data") .. '/mason/packages/node-debug2-adapter/out/src/nodeDebug.js' },
---   }
-
---   local function resolve_nx_jest_config()
---     local currentBufferPath = vim.fn.fnamemodify(vim.fn.expand("%"), ":h")
---     local sourcePathPos = vim.fn.stridx(currentBufferPath, "/src")
---     if sourcePathPos < 0 then
---       sourcePathPos = vim.fn.stridx(currentBufferPath, "/tests")
---     end
---     local projectRoot = vim.fn.strpart(currentBufferPath, 0, sourcePathPos)
-
---     return projectRoot .. "/jest.config.ts"
---   end
-
---   local function resolve_nx_jest_args()
---     return { "${fileBasenameNoExtension}", '--config', resolve_nx_jest_config() }
---   end
-
---   local function resolve_jest_program()
---     return vim.fn.getcwd() .. "/node_modules/.bin/jest"
---   end
-
---   dap.configurations.typescript = {
---     {
---       type = "node2",
---       name = "NX: Jest current file",
---       request = "launch",
---       program = resolve_jest_program,
---       args = resolve_nx_jest_args,
---       cwd = vim.fn.getcwd,
---       console = 'integratedTerminal'
---     }
---   }
-
---   dap.configurations.typescriptreact = {
---     {
---       type = "node2",
---       name = "NX: Jest current file",
---       request = "launch",
---       program = resolve_jest_program,
---       args = resolve_nx_jest_args,
---       cwd = vim.fn.getcwd,
---       console = 'integratedTerminal'
---     }
---   }
--- end
 
 function resolve_main_class()
   local currentBuffer = vim.fn.fnamemodify(vim.fn.expand("%"), ":r")
