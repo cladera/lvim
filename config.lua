@@ -1,21 +1,10 @@
---[[
-Lvim is the global options object
-
-Linters should be
-filled in as strings with either
-a global executable or a path to
-an executable
-]]
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
---
-
 -- general
---
 
 local catppuccin_ok, catppuccin = pcall(require, "catppuccin")
 
 if catppuccin_ok then
   catppuccin.setup({
+    flavour = "macchiato",
     custom_highlights = function(colors)
       return {
         LineNr = { fg = colors.teal },
@@ -29,7 +18,6 @@ if catppuccin_ok then
 end
 
 lvim.transparent_window = true
-vim.g.catppuccin_flavour = "mocha"
 lvim.log.level = "warn"
 lvim.format_on_save = false
 -- lvim.colorscheme = "tokyonight"
