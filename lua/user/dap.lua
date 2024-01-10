@@ -45,11 +45,12 @@ if dap_vscode_js_ok then
   end
 
   local function resolve_nx_test_runner()
-    if vim.fn.findfile("vite.config.ts", ".:") ~= nil then
+
+    if vim.fn.findfile("vite.config.ts", ".;"):len() > 0 then
       return "vite"
     end
 
-    if vim.fn.findfile("jest.config.ts", ".:") ~= nil then
+    if vim.fn.findfile("jest.config.ts", ".;"): len() > 0 then
       return "jest"
     end
 
