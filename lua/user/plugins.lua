@@ -57,6 +57,8 @@ lvim.plugins = {
     config = function()
       require("telescope").load_extension("yaml_schema")
     end,
+  },
+  {
     "kdheepak/lazygit.nvim",
     -- optional for floating window border decoration
     dependencies = {
