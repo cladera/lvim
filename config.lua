@@ -135,6 +135,14 @@ lvim.builtin.which_key.mappings["S"] = {
 lvim.builtin.which_key.mappings["b"]["y"] = {":let @\" = expand(\"%\")<cr>", "Yank filepath"}
 lvim.builtin.which_key.mappings["b"]["Y"] = {":let @* = expand(\"%\")<cr>", "Yank filepath (clipboard)"}
 lvim.builtin.which_key.mappings["e"] = {":Ex<cr>", "Explorer (Netwr)"}
+
+lvim.builtin.which_key.mappings['n'] = {
+  function()
+    local fname = vim.fn.input("File name: ");
+    vim.cmd('e %:h/' .. fname)
+  end, "New file"
+}
+
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
@@ -143,20 +151,6 @@ lvim.builtin.alpha.mode = "dashboard"
 require "user/lualine"
 
 lvim.builtin.terminal.active = true
-
--- Explore config
-vim.g.netrw_winsize = 15
-lvim.builtin.which_key.mappings['e'] = {
-  "<cmd>Lexplore %:h<CR><CR>", "Explore (Netrw)"
-}
-
-lvim.builtin.which_key.mappings['n'] = {
-  function()
-    local fname = vim.fn.input("New file name:");
-    vim.cmd('e %:h/' .. fname)
-  end, "Explore (Netrw)"
-}
-
 
 lvim.builtin.nvimtree.active = false
 -- lvim.builtin.nvimtree.setup.view.side = "left"
