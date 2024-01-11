@@ -134,6 +134,7 @@ lvim.builtin.which_key.mappings["S"] = {
 
 lvim.builtin.which_key.mappings["b"]["y"] = {":let @\" = expand(\"%\")<cr>", "Yank filepath"}
 lvim.builtin.which_key.mappings["b"]["Y"] = {":let @* = expand(\"%\")<cr>", "Yank filepath (clipboard)"}
+lvim.builtin.which_key.mappings["e"] = {":Ex<cr>", "Explorer (Netwr)"}
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
