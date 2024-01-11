@@ -132,6 +132,8 @@ lvim.builtin.which_key.mappings["S"] = {
   t = { ":setlocal autoindent noexpandtab ts=4 sw=4<cr>", "Use tabs" }
 }
 
+lvim.builtin.which_key.mappings["b"]["y"] = {":let @\" = expand(\"%\")<cr>", "Yank filepath"}
+lvim.builtin.which_key.mappings["b"]["Y"] = {":let @* = expand(\"%\")<cr>", "Yank filepath (clipboard)"}
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
