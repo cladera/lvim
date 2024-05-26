@@ -45,12 +45,11 @@ if dap_vscode_js_ok then
   end
 
   local function resolve_nx_test_runner()
-
     if vim.fn.findfile("vite.config.ts", ".;"):len() > 0 then
       return "vite"
     end
 
-    if vim.fn.findfile("jest.config.ts", ".;"): len() > 0 then
+    if vim.fn.findfile("jest.config.ts", ".;"):len() > 0 then
       return "jest"
     end
 
@@ -124,17 +123,25 @@ if dap_vscode_js_ok then
     end
   end
 
-  local function resolve_jest_args()
-    local args = {
-      "${workspaceFolder}/node_modules/.bin/jest",
-      "${relativeFileDirname}/${fileBasenameNoExtension}",
-      "--runInBand",
-      "--config",
-      vim.fn.findfile("jest.config.js", ".;"),
-      "--testNamePattern",
-      get_test_at_cursor(),
-    }
-    return args;
+  local function resolve_jest_args(all)
+    return function()
+      local args = {
+        "${workspaceFolder}/node_modules/.bin/jest",
+        "--runInBand",
+        "--config",
+        vim.fn.findfile("jest.config.js", ".;")
+      }
+
+      if all == false then
+        local test = get_test_at_cursor()
+        table.insert(args, "--testNamePattern")
+        table.insert(args, test)
+      end
+
+      table.insert(args, "${relativeFileDirname}/${fileBasenameNoExtension}")
+
+      return args;
+    end
   end
 
   local function resolve_mocha_program()
@@ -193,7 +200,18 @@ if dap_vscode_js_ok then
         request = "launch",
         name = "Jest: test",
         runtimeExecutable = "node",
-        runtimeArgs = resolve_jest_args,
+        runtimeArgs = resolve_jest_args(false),
+        rootPath = "${workspaceFolder}",
+        cwd = "${workspaceFolder}",
+        console = "integratedTerminal",
+        internalConsoleOptions = "neverOpen",
+      },
+      {
+        type = "pwa-node",
+        request = "launch",
+        name = "Jest: file",
+        runtimeExecutable = "node",
+        runtimeArgs = resolve_jest_args(true),
         rootPath = "${workspaceFolder}",
         cwd = "${workspaceFolder}",
         console = "integratedTerminal",
