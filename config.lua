@@ -33,6 +33,7 @@ require "user.harpoon"
 require "user.undotree"
 require "user.null-ls.checkstyle"
 require "user.lazygit"
+require "user.oil"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -132,9 +133,9 @@ lvim.builtin.which_key.mappings["S"] = {
   t = { ":setlocal autoindent noexpandtab ts=4 sw=4<cr>", "Use tabs" }
 }
 
-lvim.builtin.which_key.mappings["b"]["y"] = {":let @\" = expand(\"%\")<cr>", "Yank filepath"}
-lvim.builtin.which_key.mappings["b"]["Y"] = {":let @* = expand(\"%\")<cr>", "Yank filepath (clipboard)"}
-lvim.builtin.which_key.mappings["e"] = {":Ex<cr>", "Explorer (Netwr)"}
+lvim.builtin.which_key.mappings["b"]["y"] = { ":let @\" = expand(\"%\")<cr>", "Yank filepath" }
+lvim.builtin.which_key.mappings["b"]["Y"] = { ":let @* = expand(\"%\")<cr>", "Yank filepath (clipboard)" }
+
 local oil_ok = pcall(require, "oil")
 if not oil_ok then
   lvim.builtin.which_key.mappings["e"] = { ":Ex<cr>", "Explorer (Netwr)" }
