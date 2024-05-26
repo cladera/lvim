@@ -135,6 +135,12 @@ lvim.builtin.which_key.mappings["S"] = {
 lvim.builtin.which_key.mappings["b"]["y"] = {":let @\" = expand(\"%\")<cr>", "Yank filepath"}
 lvim.builtin.which_key.mappings["b"]["Y"] = {":let @* = expand(\"%\")<cr>", "Yank filepath (clipboard)"}
 lvim.builtin.which_key.mappings["e"] = {":Ex<cr>", "Explorer (Netwr)"}
+local oil_ok = pcall(require, "oil")
+if not oil_ok then
+  lvim.builtin.which_key.mappings["e"] = { ":Ex<cr>", "Explorer (Netwr)" }
+else
+  lvim.builtin.which_key.mappings["e"] = { ":Oil<cr>", "Explorer (Oil)" }
+end
 
 lvim.builtin.which_key.mappings['n'] = {
   function()

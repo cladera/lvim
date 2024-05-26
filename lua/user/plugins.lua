@@ -64,5 +64,11 @@ lvim.plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+  },
+  {
+    "stevearc/oil.nvim",
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   }
 }
