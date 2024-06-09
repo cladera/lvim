@@ -134,10 +134,10 @@ local config = {
         downloadSources = true,
       },
       implementationsCodeLens = {
-        enabled = true,
+        enabled = false,
       },
       referencesCodeLens = {
-        enabled = true,
+        enabled = false,
       },
       references = {
         includeDecompiledSources = true,
