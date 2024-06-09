@@ -23,8 +23,12 @@ lvim.plugins = {
   { "lunarvim/darkplus.nvim" },
   { "rose-pine/neovim" },
   {
-    "christianchiarulli/nvim-gps",
-    branch = "text_hl"
+    "SmiteshP/nvim-navic",
+    dependencies = {
+      {
+        "neovim/nvim-lspconfig"
+      }
+    }
   },
   -- { "Equilibris/nx.nvim" },
   { "mxsdev/nvim-dap-vscode-js" },

@@ -34,6 +34,7 @@ require "user.undotree"
 require "user.null-ls.checkstyle"
 require "user.lazygit"
 require "user.oil"
+require "user.navic"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
