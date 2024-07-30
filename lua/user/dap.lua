@@ -9,6 +9,17 @@ lvim.builtin.which_key.mappings['d']['l'] = {
   "<cmd>lua require'dap'.run_last()<CR>", "Run last"
 }
 
+-- attempt to replicate TJ's configuration to eval expression under cursor.
+-- local dapui_ok = pcall(require, "dapui")
+-- if dapui_ok then
+--   lvim.builtin.which_key.mappings['d']['?'] = {
+--     function()
+--       require('dapui').eval(nil, { enter = true })
+--     end,
+--     "Eval"
+--   }
+-- end
+
 local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
 
 if dap_vscode_js_ok then
@@ -41,7 +52,7 @@ if dap_vscode_js_ok then
       end
       node = node:parent()
     end
-    return string.gsub(grep, "([()])", "\\%1");
+    return string.gsub(grep, "([()$])", "\\%1");
   end
 
   local function resolve_nx_test_runner()
@@ -139,6 +150,8 @@ if dap_vscode_js_ok then
       end
 
       table.insert(args, "${relativeFileDirname}/${fileBasenameNoExtension}")
+
+      vim.inspect(args)
 
       return args;
     end

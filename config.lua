@@ -35,12 +35,12 @@ require "user.null-ls.checkstyle"
 require "user.lazygit"
 require "user.oil"
 require "user.navic"
+require "user.tabnine"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.colorcolumn = "100"
 vim.opt.clipboard = ""
-
 
 -- use treesitter folding
 -- vim.opt.foldmethod = "expr"
@@ -120,13 +120,10 @@ lvim.builtin.which_key.mappings["l"]["a"] = {
 lvim.builtin.which_key.mappings["l"]["A"] = code_actions_copy;
 
 -- lvim.builtin.cmp.confirm_opts.select = true;
-lvim.builtin.autopairs.active = false;
 
-lvim.builtin.dap.on_config_done = function()
-  lvim.builtin.which_key.mappings["d"]["u"] = {
-    "<cmd>lua require('dapui').toggle()<cr>", "Toggle Rapl"
-  }
-end
+table.insert(lvim.builtin.cmp.sources, { name = "codeium" })
+
+lvim.builtin.autopairs.active = false;
 
 lvim.builtin.which_key.mappings["S"] = {
   name = "Quick settings",

@@ -48,6 +48,18 @@ lvim.plugins = {
   --     require("copilot_cmp").setup()
   --   end,
   -- },
+  -- {
+  --   "Exafunction/codeium.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "hrsh7th/nvim-cmp",
+  --   },
+  --   config = function()
+  --     require("codeium").setup({
+  --     })
+  --   end
+  -- },
+  { 'codota/tabnine-nvim', build = "./dl_binaries.sh" },
   { "olexsmir/gopher.nvim" },
   { "leoluz/nvim-dap-go" },
   { "mbbill/undotree" },

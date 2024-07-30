@@ -48,8 +48,8 @@ dapui.setup({
 
   },
   floating = {
-    max_height = nil, -- These can be integers or a float between 0 and 1.
-    max_width = nil, -- Floats will be treated as percentage of your screen.
+    max_height = nil,  -- These can be integers or a float between 0 and 1.
+    max_width = nil,   -- Floats will be treated as percentage of your screen.
     border = "single", -- Border style. Can be "single", "double" or "rounded"
     mappings = {
       close = { "q", "<Esc>" },
@@ -73,3 +73,9 @@ end
 -- dap.listeners.after.event_exited['dapui-config'] = function()
 --   dapui.close()
 -- end
+
+-- dap ui specific keymaps
+lvim.builtin.which_key.mappings['d']['e'] = {
+  "<cmd>lua require'dap'.run_last()<CR>", "Eval"
+}
+
